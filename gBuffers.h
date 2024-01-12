@@ -12,11 +12,10 @@ public:
 	void Bind()const;
 	void UnBind()const;
 	void clearBuffers();
-	void CreateBuffers(const void* vb_data, 
-		unsigned int& vb_size, 
-		const unsigned int* ib_indices, 
-		unsigned int& ib_count, 
-		VertexBufferLayout& layout);
+
+	void createBuffers(const void* vb_data, unsigned int& vb_size, VertexBufferLayout& vb_layout, GLenum usage);
+	void createBuffers(const void* vb_data, unsigned int& vb_size, const unsigned int* ib_indices, unsigned int& ib_count, VertexBufferLayout& layout, GLenum usage);
+	void updateBuffers(const void* vb_data, unsigned int& vb_size, GLenum usage);
 	VertexBuffer vbo;
 	VertexArray vao;
 	IndexBuffer ibo;

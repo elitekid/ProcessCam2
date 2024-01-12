@@ -9,7 +9,8 @@ public:
 	VertexBuffer();
 	~VertexBuffer();
 	void deleteVertexBuffer();
-	void createVertexBuffer(const void* data, unsigned int size);
+	void createVertexBuffer(const void* data, unsigned int size, GLenum usage);
+	void updateBuffer(const void* data, unsigned int size, GLenum usage);
 	void Bind() const;
 	void UnBind() const;
 private:

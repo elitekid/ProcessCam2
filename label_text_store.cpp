@@ -69,8 +69,8 @@ void label_text_store::set_buffers()
 	unsigned int label_vertex_size = label_vertex_count * sizeof(float);
 
 	// 버퍼 생성
-	label_buffers.CreateBuffers((void*)label_vertices, label_vertex_size,
-		(unsigned int*)label_indices, label_indices_count, label_layout);
+	label_buffers.createBuffers((void*)label_vertices, label_vertex_size,
+		(unsigned int*)label_indices, label_indices_count, label_layout, GL_STATIC_DRAW);
 
 	// 힙에서 동적 배열 삭제
 	delete[] label_vertices;

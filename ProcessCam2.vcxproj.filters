@@ -53,7 +53,7 @@
     <ClCompile Include="IndexBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Texture.cpp">
+    <ClCompile Include="texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="VertexArray.cpp">
@@ -68,7 +68,7 @@
     <ClCompile Include="stb_implement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="geom_store.cpp">
+    <ClCompile Include="text_geom_store.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="label_text_store.cpp">
@@ -80,7 +80,10 @@
     <ClCompile Include="util.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="cam_store.cpp">
+    <ClCompile Include="cam_geom_store.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="box_geom_store.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -103,8 +106,8 @@
     <None Include="text_vert_shader.vert" />
     <None Include="camera_frag_shader.frag" />
     <None Include="camera_frag_shader.vert" />
-    <None Include="text_box_frag_shader.frag" />
-    <None Include="text_box_frag_shader.vert" />
+    <None Include="box_frag_shader.frag" />
+    <None Include="box_frag_shader.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="textarea.h">
@@ -119,7 +122,7 @@
     <ClInclude Include="gBuffers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Texture.h">
+    <ClInclude Include="texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="VertexArray.h">
@@ -140,7 +143,7 @@
     <ClInclude Include="stb_implement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="geom_store.h">
+    <ClInclude Include="text_geom_store.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="label_text_store.h">
@@ -149,13 +152,13 @@
     <ClInclude Include="shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gltext.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="cam_store.h">
+    <ClInclude Include="cam_geom_store.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="box_geom_store.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

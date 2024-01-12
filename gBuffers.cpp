@@ -1,54 +1,65 @@
 #include "gBuffers.h"
 
-
 gBuffers::gBuffers()
-	:vbo(),vao(),ibo()
+    : vbo(), vao(), ibo()
 {
-	// Empty constructor
 }
 
 gBuffers::~gBuffers()
 {
-	// Destructor
 }
 
-void gBuffers::CreateBuffers(const void* vb_data,
-	unsigned int& vb_size,
-	const unsigned int* ib_indices,
-	unsigned int& ib_count,
-	VertexBufferLayout& vb_layout)
+void gBuffers::createBuffers(const void* vb_data, unsigned int& vb_size, VertexBufferLayout& vb_layout, GLenum usage)
 {
+    // Vertex Array Object 생성
+    vao.createVertexArray();
 
-	vao.createVertexArray();
+    // Vertex Buffer 생성
+    vbo.createVertexBuffer(vb_data, vb_size, usage);
 
-	// Vertex buffer (vertices and number of vertices * sizeof(float)
-	vbo.createVertexBuffer(vb_data, vb_size);
-
-	// Index buffer (indices and number of indices)
-	ibo.createIndexBuffer(ib_indices, ib_count);
-
-	// Vertex Array (vertex buffer and vertex buffer layout) 
-	vao.AddBuffer(vbo, vb_layout);
+    // Vertex Array Object에 Vertex Buffer 추가
+    vao.AddBuffer(vbo, vb_layout);
 }
+
+void gBuffers::createBuffers(const void* vb_data, unsigned int& vb_size, const unsigned int* ib_indices, unsigned int& ib_count, VertexBufferLayout& layout, GLenum usage)  // 변경된 부분
+{
+    // Vertex Array Object 생성
+    vao.createVertexArray();
+
+    // Vertex Buffer 생성
+    vbo.createVertexBuffer(vb_data, vb_size, usage);
+
+    // Index Buffer 생성
+    ibo.createIndexBuffer(ib_indices, ib_count);
+
+    // Vertex Array Object에 Vertex Buffer 및 Index Buffer 추가
+    vao.AddBuffer(vbo, layout);  // 변경된 부분
+}
+
+void gBuffers::updateBuffers(const void* vb_data, unsigned int& vb_size, GLenum usage)  // 변경된 부분
+{
+    vbo.updateBuffer(vb_data, vb_size, usage);
+}
+
 
 void gBuffers::clearBuffers()
 {
-	vao.deleteVertexArray();
-	vbo.deleteVertexBuffer();
-	ibo.deleteIndexBuffer();
+    // Vertex Array Object, Vertex Buffer, Index Buffer 삭제
+    vao.deleteVertexArray();
+    vbo.deleteVertexBuffer();
+    ibo.deleteIndexBuffer();
 }
 
 void gBuffers::Bind() const
 {
-	// Bind the buffers
-	vao.Bind();
-	ibo.Bind();
+    // Vertex Array Object와 Index Buffer 바인딩
+    vao.Bind();
+    ibo.Bind();
 }
-
 
 void gBuffers::UnBind() const
 {
-	// Un Bind the buffers
-	vao.UnBind();
-	ibo.UnBind();
+    // Vertex Array Object와 Index Buffer 언바인딩
+    vao.UnBind();
+    ibo.UnBind();
 }

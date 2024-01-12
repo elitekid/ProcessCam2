@@ -123,12 +123,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="box_geom_store.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="cameralistmodel.cpp" />
-    <ClCompile Include="cam_store.cpp" />
+    <ClCompile Include="cam_geom_store.cpp" />
     <ClCompile Include="font_atlas.cpp" />
     <ClCompile Include="gBuffers.cpp" />
-    <ClCompile Include="geom_store.cpp" />
+    <ClCompile Include="text_geom_store.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="label_text_store.cpp" />
@@ -136,15 +137,15 @@
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="stb_implement.cpp" />
     <ClCompile Include="TextArea.cpp" />
-    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="texture.cpp" />
     <ClCompile Include="util.cpp" />
     <ClCompile Include="VertexArray.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
     <ClCompile Include="VertexBufferLayout.cpp" />
     <None Include="camera_frag_shader.frag" />
     <None Include="camera_frag_shader.vert" />
-    <None Include="text_box_frag_shader.frag" />
-    <None Include="text_box_frag_shader.vert" />
+    <None Include="box_frag_shader.frag" />
+    <None Include="box_frag_shader.vert" />
     <None Include="text_frag_shader.frag" />
     <None Include="text_vert_shader.vert" />
     <QtRcc Include="qml.qrc" />
@@ -152,15 +153,15 @@
     <None Include="main.qml" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="cam_store.h" />
-    <ClInclude Include="geom_store.h" />
-    <ClInclude Include="gltext.h" />
+    <ClInclude Include="box_geom_store.h" />
+    <ClInclude Include="cam_geom_store.h" />
+    <ClInclude Include="text_geom_store.h" />
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="label_text_store.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="stb_implement.h" />
-    <ClInclude Include="Texture.h" />
+    <ClInclude Include="texture.h" />
     <ClInclude Include="util.h" />
     <ClInclude Include="VertexArray.h" />
     <ClInclude Include="VertexBuffer.h" />

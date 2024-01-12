@@ -56,6 +56,20 @@ public:
         cap.release();
     }
 
+    int getCols() const {
+        if (cap.isOpened()) {
+            return static_cast<int>(cap.get(CAP_PROP_FRAME_WIDTH));
+        }
+        return 0;
+    }
+
+    int getRows() const {
+        if (cap.isOpened()) {
+            return static_cast<int>(cap.get(CAP_PROP_FRAME_HEIGHT));
+        }
+        return 0;
+    }
+
 private:
     VideoCapture cap;
     bool status;

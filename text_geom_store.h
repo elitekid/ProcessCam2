@@ -9,13 +9,13 @@
 #include <vector>
 #include <concurrent_vector.h>
 
-class geom_store
+class text_geom_store
 {
 public:
 
-	geom_store();
-	~geom_store();
-	void set_geometry();
+	text_geom_store();
+	~text_geom_store();
+	void set_text_geometry();
 	void add_label(std::vector<TextArea>& textAreas, float w, float h, float square);
 	void delete_buffers();
 	void paint_geometry();
