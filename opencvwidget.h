@@ -17,6 +17,8 @@ class CamObj : public QObject
 public:
     explicit CamObj(QObject* parent = nullptr);
 
+signals:
+
 public slots:
     void showCam(int camNum, QString colorCode);
 };

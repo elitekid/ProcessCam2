@@ -1,4 +1,4 @@
-#ifndef UTIL_H
+ï»¿#ifndef UTIL_H
 #define UTIL_H
 
 #include <string>
@@ -6,16 +6,16 @@
 
 class Utils {
 public:
-    // Çí½º ÄÚµå¸¦ BGR °ªÀ¸·Î º¯È¯ÇÏ´Â ÇÔ¼ö
+    // í—¥ìŠ¤ ì½”ë“œë¥¼ BGR ê°’ìœ¼ë¡œ ë³€í™˜í•˜ëŠ” í•¨ìˆ˜
     static void hexToNormalizedFloat(const std::string& hexCode, float& red, float& green, float& blue);
 
-    // °ø¾à¼ö °è»ê ÇÔ¼ö
+    // ê³µì•½ìˆ˜ ê³„ì‚° í•¨ìˆ˜
     static std::vector<int> findCommonDivisors(int num1, int num2);
 
-    // ÁÂÇ¥ Á¤±ÔÈ­ : ÃßÃâÇÑ Àı´ëÁÂÇ¥ -> -1.0f ~ 1.0f ¹üÀ§·Î Á¤±ÔÈ­
+    // ì¢Œí‘œ ì •ê·œí™” : ì¶”ì¶œí•œ ì ˆëŒ€ì¢Œí‘œ -> -1.0f ~ 1.0f ë²”ìœ„ë¡œ ì •ê·œí™”
     static void calcNDS(int w, int h, float x, float y, float squareSize, std::vector<float>& vertices);
 
-    // ´Ù¸¥ À¯Æ¿¸®Æ¼ ÇÔ¼öµéÀ» Ãß°¡ÇÒ ¼ö ÀÖ½À´Ï´Ù.
+    // ë‹¤ë¥¸ ìœ í‹¸ë¦¬í‹° í•¨ìˆ˜ë“¤ì„ ì¶”ê°€í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
 };
 
 #endif // UTIL_H

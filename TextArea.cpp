@@ -1,4 +1,4 @@
-#include "textarea.h"
+﻿#include "textarea.h"
 #include <iostream>
 #include <cstring>
 

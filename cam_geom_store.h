@@ -1,17 +1,19 @@
-#pragma once
+﻿#pragma once
 #include "gBuffers.h"
 #include "shader.h"
 #include "SettingManager.h"
 #include "texture.h"
-#include <vector>
+#include <opencv2/opencv.hpp>
+
+using namespace cv;
 
 class cam_geom_store
 {
 public:
 	cam_geom_store();
 	~cam_geom_store();
-	void set_camera_geometry(int cols, int rows);
-	void drawCam(unsigned char* cameraData);
+	void setCameraGeometry(int cols, int rows);
+	void drawCam(const Mat & frame);
 	void bind();
 	void unBind();
 private:

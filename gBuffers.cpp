@@ -1,4 +1,4 @@
-#include "gBuffers.h"
+ï»¿#include "gBuffers.h"
 
 gBuffers::gBuffers()
     : vbo(), vao(), ibo()
@@ -11,32 +11,32 @@ gBuffers::~gBuffers()
 
 void gBuffers::createBuffers(const void* vb_data, unsigned int& vb_size, VertexBufferLayout& vb_layout, GLenum usage)
 {
-    // Vertex Array Object »ı¼º
+    // Vertex Array Object ìƒì„±
     vao.createVertexArray();
 
-    // Vertex Buffer »ı¼º
+    // Vertex Buffer ìƒì„±
     vbo.createVertexBuffer(vb_data, vb_size, usage);
 
-    // Vertex Array Object¿¡ Vertex Buffer Ãß°¡
+    // Vertex Array Objectì— Vertex Buffer ì¶”ê°€
     vao.AddBuffer(vbo, vb_layout);
 }
 
-void gBuffers::createBuffers(const void* vb_data, unsigned int& vb_size, const unsigned int* ib_indices, unsigned int& ib_count, VertexBufferLayout& layout, GLenum usage)  // º¯°æµÈ ºÎºĞ
+void gBuffers::createBuffers(const void* vb_data, unsigned int& vb_size, const unsigned int* ib_indices, unsigned int& ib_count, VertexBufferLayout& layout, GLenum usage)  // ë³€ê²½ëœ ë¶€ë¶„
 {
-    // Vertex Array Object »ı¼º
+    // Vertex Array Object ìƒì„±
     vao.createVertexArray();
 
-    // Vertex Buffer »ı¼º
+    // Vertex Buffer ìƒì„±
     vbo.createVertexBuffer(vb_data, vb_size, usage);
 
-    // Index Buffer »ı¼º
+    // Index Buffer ìƒì„±
     ibo.createIndexBuffer(ib_indices, ib_count);
 
-    // Vertex Array Object¿¡ Vertex Buffer ¹× Index Buffer Ãß°¡
-    vao.AddBuffer(vbo, layout);  // º¯°æµÈ ºÎºĞ
+    // Vertex Array Objectì— Vertex Buffer ë° Index Buffer ì¶”ê°€
+    vao.AddBuffer(vbo, layout);  // ë³€ê²½ëœ ë¶€ë¶„
 }
 
-void gBuffers::updateBuffers(const void* vb_data, unsigned int& vb_size, GLenum usage)  // º¯°æµÈ ºÎºĞ
+void gBuffers::updateBuffers(const void* vb_data, unsigned int& vb_size, GLenum usage)  // ë³€ê²½ëœ ë¶€ë¶„
 {
     vbo.updateBuffer(vb_data, vb_size, usage);
 }
@@ -44,7 +44,7 @@ void gBuffers::updateBuffers(const void* vb_data, unsigned int& vb_size, GLenum 
 
 void gBuffers::clearBuffers()
 {
-    // Vertex Array Object, Vertex Buffer, Index Buffer »èÁ¦
+    // Vertex Array Object, Vertex Buffer, Index Buffer ì‚­ì œ
     vao.deleteVertexArray();
     vbo.deleteVertexBuffer();
     ibo.deleteIndexBuffer();
@@ -52,14 +52,14 @@ void gBuffers::clearBuffers()
 
 void gBuffers::Bind() const
 {
-    // Vertex Array Object¿Í Index Buffer ¹ÙÀÎµù
+    // Vertex Array Objectì™€ Index Buffer ë°”ì¸ë”©
     vao.Bind();
     ibo.Bind();
 }
 
 void gBuffers::UnBind() const
 {
-    // Vertex Array Object¿Í Index Buffer ¾ğ¹ÙÀÎµù
+    // Vertex Array Objectì™€ Index Buffer ì–¸ë°”ì¸ë”©
     vao.UnBind();
     ibo.UnBind();
 }

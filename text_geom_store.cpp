@@ -1,21 +1,18 @@
-#include "text_geom_store.h"
+ï»¿#include "text_geom_store.h"
 
 text_geom_store::text_geom_store()
 {
-    // »ı¼ºÀÚ
 }
 
 text_geom_store::~text_geom_store()
 {
-    // ¼Ò¸êÀÚ
 }
 
-void text_geom_store::set_text_geometry()
+void text_geom_store::setTextGeometry()
 {
-    // ÅØ½ºÆ® Áö¿À¸ŞÆ®¸® ¼³Á¤ ÇÔ¼ö
-    // ¿©·¯ °¡Áö ÃÊ±âÈ­ ¹× ¹öÆÛ »ı¼º ÀÛ¾÷ ¼öÇà
+    // í…ìŠ¤íŠ¸ ë Œë”ë§ì„ ìœ„í•œ ê¸°ë³¸ ì„¤ì •
 
-    // Á¤Á¡ µ¥ÀÌÅÍ ¹× ÀÎµ¦½º ÃÊ±âÈ­
+    // ì •ì  ë°ì´í„° ë° ì¸ë±ìŠ¤ ì´ˆê¸°í™”
     unsigned int node_vertices_count = 6 * 3;
     float* node_vertices = new float[node_vertices_count];
 
@@ -25,63 +22,67 @@ void text_geom_store::set_text_geometry()
     unsigned int node_vertex_index = 0;
     unsigned int node_indices_index = 0;
 
-    // °£´ÜÇÑ »ï°¢ÇüÀ» ÀÌ¿ëÇÑ Á¤Á¡ ¹× ÀÎµ¦½º »ı¼º
-    set_simple_triangle(node_vertices, node_vertex_index, node_indices, node_indices_index);
+    // ì‚¼ê°í˜•ì„ ì´ìš©í•œ ì •ì  ë° ì¸ë±ìŠ¤ ìƒì„±
+    setSimpleTriangle(node_vertices, node_vertex_index, node_indices, node_indices_index);
 
-    // Á¤Á¡ ¹öÆÛ ·¹ÀÌ¾Æ¿ô Á¤ÀÇ
+    // ì •ì  ë²„í¼ ë ˆì´ì•„ì›ƒ ì •ì˜
     VertexBufferLayout vb_tri;
     vb_tri.AddFloat(3);
     vb_tri.AddFloat(3);
 
-    // »ö»ó ¼³Á¤
+    // ìƒ‰ìƒ ì„¤ì •
     float red, green, blue;
     Utils::hexToNormalizedFloat(settingManager.getColorCode().toStdString(), red, green, blue);
 
-    // ¹öÆÛ »ı¼º
+    // ë²„í¼ ìƒì„±
     unsigned int node_vertices_size = node_vertices_count * sizeof(float);
     tri_buffers.createBuffers(node_vertices, node_vertices_size, node_indices, node_indices_count, vb_tri, GL_STATIC_DRAW);
 
-    // ÅØ½ºÆ® ½¦ÀÌ´õ »ı¼º ¹× ÃÊ±âÈ­
+    // í…ìŠ¤íŠ¸ ì‰ì´ë” ìƒì„± ë° ì´ˆê¸°í™”
     text_shader.create_shader("text_vert_shader.vert", "text_frag_shader.frag");
     text_shader.setUniform("zoomscale", 1.0f);
     text_shader.setUniform("u_Texture", 0);
     text_shader.setUniform("textColor", red, green, blue, 1.0f);
 }
 
-void text_geom_store::add_label(std::vector<TextArea>& textAreas, float w, float h, float square)
+void text_geom_store::addLabel()
 {
-    // ¶óº§ Ãß°¡ ÇÔ¼ö
-    // TextArea °´Ã¼¸¦ ÀÌ¿ëÇÏ¿© ¶óº§ÀÇ À§Ä¡ ¹× »ö»ó ¼³Á¤
+    // ë¼ë²¨ ì¶”ê°€ í•¨ìˆ˜
+    // TextArea ê°ì²´ë¥¼ ì´ìš©í•˜ì—¬ ë¼ë²¨ì˜ ìœ„ì¹˜ ë° ìƒ‰ìƒ ì„¤ì •
 
-    // ¸ğµç ¶óº§ ÃÊ±âÈ­
+    // ëª¨ë“  ë¼ë²¨ ì´ˆê¸°í™”
     all_labels.init();
 
-    // °¢ TextArea¿¡ ´ëÇÑ ¶óº§ Ãß°¡
+    vector<TextArea> textAreas = frameInfo.getTextAreas();
+    int w = frameInfo.getFrame().cols;
+    int h = frameInfo.getFrame().rows;
+
+    // ê° TextAreaì— ëŒ€í•œ ë¼ë²¨ ì¶”ê°€
     for (const auto& t : textAreas) {
-        // NDC ÁÂÇ¥ °è»ê
-        float ndcX = ((t.getX() + square / 2.0f - 4.5f) / w) * 2.0f - 1.0f;
+        // NDC ì¢Œí‘œ ê³„ì‚°
+        float ndcX = ((t.getX() + frameInfo.getSquareSize() / 2.0f - 4.5f) / w) * 2.0f - 1.0f;
         float ndcY = 1.0f - ((t.getY()) / (h - 1.0f)) * 2.0f;
 
-        // ¶óº§ Ãß°¡
+        // ë¼ë²¨ ì¶”ê°€
         all_labels.add_text(t.getHexColor(), glm::vec2(ndcX, ndcY), glm::vec3(0.0f, 1.0f, 1.0f), 1.0f, -90, 0.000015f);
     }
 
-    // ¶óº§¿¡ ´ëÇÑ ¹öÆÛ ¼³Á¤
+    // ë¼ë²¨ì— ëŒ€í•œ ë²„í¼ ì„¤ì •
     all_labels.set_buffers();
 }
 
-void text_geom_store::delete_buffers()
+void text_geom_store::deleteBuffers()
 {
-    // ¹öÆÛ »èÁ¦ ÇÔ¼ö
-    // ¸ğµç ¶óº§ÀÇ ¹öÆÛ¸¦ »èÁ¦
+    // ë²„í¼ ì‚­ì œ í•¨ìˆ˜
+    // ëª¨ë“  ë¼ë²¨ì˜ ë²„í¼ë¥¼ ì‚­ì œ
     all_labels.clear_buffers();
 }
 
-void text_geom_store::set_simple_triangle(float* vertices, unsigned int& vertices_index,
+void text_geom_store::setSimpleTriangle(float* vertices, unsigned int& vertices_index,
     unsigned int* indices, unsigned int& indices_index)
 {
-    // °£´ÜÇÑ »ï°¢Çü Á¤Á¡ ¹× ÀÎµ¦½º ¼³Á¤ ÇÔ¼ö
-    // »ï°¢ÇüÀÇ ¼¼ ²ÀÁöÁ¡À» Á¤ÀÇÇÏ°í ÀÎµ¦½º¸¦ ¼³Á¤
+    // ê°„ë‹¨í•œ ì‚¼ê°í˜• ì •ì  ë° ì¸ë±ìŠ¤ ì„¤ì • í•¨ìˆ˜
+    // ì‚¼ê°í˜•ì˜ ì„¸ ê¼­ì§€ì ì„ ì •ì˜í•˜ê³  ì¸ë±ìŠ¤ë¥¼ ì„¤ì •
 
     // Point 1
     vertices[vertices_index + 0] = -0.5;
@@ -116,17 +117,26 @@ void text_geom_store::set_simple_triangle(float* vertices, unsigned int& vertice
 
     vertices_index = vertices_index + 6;
 
-    // »ï°¢ÇüÀÇ ÀÎµ¦½º ¼³Á¤
+    // ì‚¼ê°í˜•ì˜ ì¸ë±ìŠ¤ ì„¤ì •
     indices[indices_index + 0] = 0;
     indices[indices_index + 1] = 1;
     indices[indices_index + 2] = 2;
 }
 
-void text_geom_store::paint_geometry()
+void text_geom_store::drawText(frame_info& newFrame)
 {
-    // Áö¿À¸ŞÆ®¸®¸¦ ±×¸®´Â ÇÔ¼ö
-    // ÅØ½ºÆ® ½¦ÀÌ´õ¸¦ ¹ÙÀÎµùÇÏ°í ¶óº§À» ±×¸° ÈÄ ¾ğ¹ÙÀÎµù
+    // í”„ë ˆì„ ì •ë³´ ì—…ë°ì´íŠ¸
+    frameInfo = newFrame;
+
+    // ë¼ë²¨ ì¶”ê°€
+    addLabel();
+
+    // í…ìŠ¤íŠ¸ ì‰ì´ë” ë°”ì¸ë”©
     text_shader.Bind();
+
+    // í…ìŠ¤íŠ¸ ê·¸ë¦¬ê¸°
     all_labels.paint_text();
+
+    // í…ìŠ¤íŠ¸ ì‰ì´ë” ì–¸ë°”ì¸ë”©
     text_shader.UnBind();
 }

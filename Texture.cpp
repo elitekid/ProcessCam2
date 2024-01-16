@@ -1,4 +1,4 @@
-#include "texture.h"
+ï»¿#include "texture.h"
 
 Texture::Texture()
     : texture_id(0), local_buffer(nullptr), texture_width(0), texture_height(0)
@@ -7,48 +7,46 @@ Texture::Texture()
 
 Texture::~Texture()
 {
-    // ·ÎÄÃ ¹öÆÛ ¸Ş¸ğ¸® ÇØÁ¦
-    if (local_buffer)
-        stbi_image_free(local_buffer);
-
-    // ÅØ½ºÃ³ OpenGL ÀÚ¿ø ÇØÁ¦
-    glDeleteTextures(1, &texture_id);
+    if (this->texture_id != 0) {
+        glDeleteTextures(1, &texture_id);
+    }
+    // í…ìŠ¤ì²˜ OpenGL ìì› í•´ì œ
 }
 
-void Texture::load(int cameraWidth, int cameraHeight)
+void Texture::load(int width, int height)
 {
-    // ÅØ½ºÃ³ »ı¼º ¹× ÃÊ±âÈ­
+    // í…ìŠ¤ì²˜ ìƒì„± ë° ì´ˆê¸°í™”
     glGenTextures(1, &texture_id);
     glBindTexture(GL_TEXTURE_2D, texture_id);
 
-    // ÀÌ¹ÌÁö µ¥ÀÌÅÍ¿Í ÅØ½ºÃ³ Çü½Ä ¼³Á¤
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, cameraWidth, cameraHeight, 0, GL_BGR, GL_UNSIGNED_BYTE, NULL);
+    // ì´ë¯¸ì§€ ë°ì´í„°ì™€ í…ìŠ¤ì²˜ í˜•ì‹ ì„¤ì •
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, NULL);
 
-    // ÅØ½ºÃ³ ÇÊÅÍ¸µ ¼³Á¤
+    // í…ìŠ¤ì²˜ í•„í„°ë§ ì„¤ì •
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-    // texture_width¿Í texture_height¿¡ ÀúÀå
-    texture_width = cameraWidth;
-    texture_height = cameraHeight;
+    // texture_widthì™€ texture_heightì— ì €ì¥
+    texture_width = width;
+    texture_height = height;
 }
 
 void Texture::update(unsigned char* cameraData)
 {
-    // ÅØ½ºÃ³¿¡ Ä«¸Ş¶ó ÇÁ·¹ÀÓ µ¥ÀÌÅÍ ¾÷µ¥ÀÌÆ®
+    // í…ìŠ¤ì²˜ì— ì¹´ë©”ë¼ í”„ë ˆì„ ë°ì´í„° ì—…ë°ì´íŠ¸
     glBindTexture(GL_TEXTURE_2D, texture_id);
     glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, texture_width, texture_height, GL_BGR, GL_UNSIGNED_BYTE, cameraData);
 }
 
 void Texture::bind(unsigned int slot) const
 {
-    // ÅØ½ºÃ³ ½½·Ô È°¼ºÈ­ ¹× ¹ÙÀÎµù
+    // í…ìŠ¤ì²˜ ìŠ¬ë¡¯ í™œì„±í™” ë° ë°”ì¸ë”©
     glActiveTexture(GL_TEXTURE0 + slot);
     glBindTexture(GL_TEXTURE_2D, texture_id);
 }
 
 void Texture::unBind()
 {
-    // ÅØ½ºÃ³ ¹ÙÀÎµù ÇØÁ¦
+    // í…ìŠ¤ì²˜ ë°”ì¸ë”© í•´ì œ
     glBindTexture(GL_TEXTURE_2D, 0);
 }

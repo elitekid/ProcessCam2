@@ -1,4 +1,4 @@
-#include "box_geom_store.h"
+ï»¿#include "box_geom_store.h"
 
 box_geom_store::box_geom_store()
 {
@@ -8,45 +8,45 @@ box_geom_store::~box_geom_store()
 {
 }
 
-void box_geom_store::set_box_geometry()
+void box_geom_store::setBoxGeometry()
 {
-    // Á¤Á¡ ¹öÆÛ ·¹ÀÌ¾Æ¿ô Á¤ÀÇ
+    // ì •ì  ë²„í¼ ë ˆì´ì•„ì›ƒ ì •ì˜
     VertexBufferLayout vb_tri;
-    vb_tri.AddFloat(3);  // À§Ä¡ Á¤º¸
+    vb_tri.AddFloat(3);  // ìœ„ì¹˜ ì •ë³´
 
-    // ¹öÆÛ »ı¼º
+    // ë²„í¼ ìƒì„±
     unsigned int node_vertices_size = vertices.size() * sizeof(float);
     box_buffers.createBuffers(static_cast<const void*>(vertices.data()), node_vertices_size, vb_tri, GL_STREAM_DRAW);
 
-    // ½¦ÀÌ´õ »ı¼º
+    // ì‰ì´ë” ìƒì„±
     box_shader.create_shader("box_frag_shader.vert", "box_frag_shader.frag");
 }
 
-void box_geom_store::drawBox(unsigned char* cameraData, int numberOfBox, std::vector<float> updatedVertices)
+void box_geom_store::drawBox(frame_info & frameInfo)
 {
-    // ¹Ú½º ±×¸®±â
+    // ë°•ìŠ¤ ê·¸ë¦¬ê¸°
     bind();
 
-    // ¾÷µ¥ÀÌÆ®
-    vertices = updatedVertices;
+    // ì—…ë°ì´íŠ¸
+    vertices = frameInfo.getVertices();
     unsigned int node_vertices_size = vertices.size() * sizeof(float);
     box_buffers.updateBuffers(static_cast<const void*>(vertices.data()), node_vertices_size, GL_STREAM_DRAW);
-    glDrawArrays(GL_TRIANGLES, 0, 6 * numberOfBox);
+    glDrawArrays(GL_TRIANGLES, 0, 6 * frameInfo.getBoxCnt());
 
-    // ¹ÙÀÎµù ÇØÁ¦
+    // ë°”ì¸ë”© í•´ì œ
     unBind();
 }
 
 void box_geom_store::bind()
 {
-    // ½¦ÀÌ´õ, Á¤Á¡ ¹öÆÛ ¹ÙÀÎµù
+    // ì‰ì´ë”, ì •ì  ë²„í¼ ë°”ì¸ë”©
     box_shader.Bind();
     box_buffers.Bind();
 }
 
 void box_geom_store::unBind()
 {
-    // ¹ÙÀÎµù ÇØÁ¦
+    // ë°”ì¸ë”© í•´ì œ
     box_shader.UnBind();
     box_buffers.UnBind();
 }

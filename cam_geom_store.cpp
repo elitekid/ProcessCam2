@@ -1,4 +1,4 @@
-#include "cam_geom_store.h"
+ï»¿#include "cam_geom_store.h"
 
 cam_geom_store::cam_geom_store()
 {
@@ -8,65 +8,65 @@ cam_geom_store::~cam_geom_store()
 {
 }
 
-void cam_geom_store::set_camera_geometry(int cols, int rows)
+void cam_geom_store::setCameraGeometry(int cols, int rows)
 {
-    // Á¤Á¡ µ¥ÀÌÅÍ Á¤ÀÇ
+    // ì •ì  ë°ì´í„° ì •ì˜
     float vertices[] = {
-        // À§Ä¡                // ÅØ½ºÃ³ ÁÂÇ¥
-         1.0f,  1.0f, 0.0f,   1.0f, 0.0f,  // ¿À¸¥ÂÊ »ó´Ü
-         1.0f, -1.0f, 0.0f,   1.0f, 1.0f,  // ¿À¸¥ÂÊ ÇÏ´Ü
+        // ìœ„ì¹˜                // í…ìŠ¤ì²˜ ì¢Œí‘œ
+         1.0f,  1.0f, 0.0f,   1.0f, 0.0f,  // ì˜¤ë¥¸ìª½ ìƒë‹¨
+         1.0f, -1.0f, 0.0f,   1.0f, 1.0f,  // ì˜¤ë¥¸ìª½ í•˜ë‹¨
 
-        -1.0f, -1.0f, 0.0f,   0.0f, 1.0f,  // ¿ŞÂÊ ÇÏ´Ü
-        -1.0f,  1.0f, 0.0f,   0.0f, 0.0f   // ¿ŞÂÊ »ó´Ü
+        -1.0f, -1.0f, 0.0f,   0.0f, 1.0f,  // ì™¼ìª½ í•˜ë‹¨
+        -1.0f,  1.0f, 0.0f,   0.0f, 0.0f   // ì™¼ìª½ ìƒë‹¨
     };
 
-    // ÀÎµ¦½º µ¥ÀÌÅÍ Á¤ÀÇ
+    // ì¸ë±ìŠ¤ ë°ì´í„° ì •ì˜
     unsigned int indices[] = {
-        0, 1, 3,   // Ã¹ ¹øÂ° »ï°¢Çü
-        1, 2, 3    // µÎ ¹øÂ° »ï°¢Çü
+        0, 1, 3,   // ì²« ë²ˆì§¸ ì‚¼ê°í˜•
+        1, 2, 3    // ë‘ ë²ˆì§¸ ì‚¼ê°í˜•
     };
 
-    // Geometry ¼³Á¤
+    // Geometry ì„¤ì •
     unsigned int node_vertices_count = 20;
     unsigned int node_indices_count = 6;
 
-    // Á¤Á¡ ¹öÆÛ ·¹ÀÌ¾Æ¿ô Á¤ÀÇ
+    // ì •ì  ë²„í¼ ë ˆì´ì•„ì›ƒ ì •ì˜
     VertexBufferLayout vb_tri;
-    vb_tri.AddFloat(3);  // À§Ä¡ Á¤º¸
-    vb_tri.AddFloat(2);  // ÅØ½ºÃ³ ÁÂÇ¥ Á¤º¸
+    vb_tri.AddFloat(3);  // ìœ„ì¹˜ ì •ë³´
+    vb_tri.AddFloat(2);  // í…ìŠ¤ì²˜ ì¢Œí‘œ ì •ë³´
 
-    // ¹öÆÛ »ı¼º
+    // ë²„í¼ ìƒì„±
     unsigned int node_vertices_size = node_vertices_count * sizeof(float);
     cam_buffers.createBuffers(vertices, node_vertices_size, indices, node_indices_count, vb_tri, GL_STATIC_DRAW);
 
-    // ½¦ÀÌ´õ »ı¼º
+    // ì‰ì´ë” ìƒì„±
     cam_shader.create_shader("camera_frag_shader.vert", "camera_frag_shader.frag");
 
-    // ÅØ½ºÃ³ ÃÊ±âÈ­
+    // í…ìŠ¤ì²˜ ì´ˆê¸°í™”
     cam_texture.load(cols, rows);
 
-    // ½¦ÀÌ´õ¿¡ ÅØ½ºÃ³ À¯´ÏÆû ¼³Á¤
+    // ì‰ì´ë”ì— í…ìŠ¤ì²˜ ìœ ë‹ˆí¼ ì„¤ì •
     cam_shader.setUniform("textureID_bg", 0);
 }
 
-void cam_geom_store::drawCam(unsigned char* cameraData)
+void cam_geom_store::drawCam(const Mat & frame)
 {
-    // Ä«¸Ş¶ó ÇÁ·¹ÀÓ ±×¸®±â
+    // ì¹´ë©”ë¼ í”„ë ˆì„ ê·¸ë¦¬ê¸°
     bind();
 
-    // ÅØ½ºÃ³ ¾÷µ¥ÀÌÆ®
-    cam_texture.update(cameraData);
+    // í…ìŠ¤ì²˜ ì—…ë°ì´íŠ¸
+    cam_texture.update(frame.data);
 
-    // Á¤Á¡ ±×¸®±â
+    // ì •ì  ê·¸ë¦¬ê¸°
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
-    // ¹ÙÀÎµù ÇØÁ¦
+    // ë°”ì¸ë”© í•´ì œ
     unBind();
 }
 
 void cam_geom_store::bind()
 {
-    // ÅØ½ºÃ³, ½¦ÀÌ´õ, Á¤Á¡ ¹öÆÛ ¹ÙÀÎµù
+    // í…ìŠ¤ì²˜, ì‰ì´ë”, ì •ì  ë²„í¼ ë°”ì¸ë”©
     cam_texture.bind();
     cam_shader.Bind();
     cam_buffers.Bind();
@@ -74,7 +74,7 @@ void cam_geom_store::bind()
 
 void cam_geom_store::unBind()
 {
-    // ¹ÙÀÎµù ÇØÁ¦
+    // ë°”ì¸ë”© í•´ì œ
     cam_shader.UnBind();
     cam_buffers.UnBind();
     cam_texture.unBind();

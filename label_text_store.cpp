@@ -1,19 +1,19 @@
-#include "label_text_store.h"
+ï»¿#include "label_text_store.h"
 
 label_text_store::label_text_store()
 	: total_char_count(0)
 {
-	// »ı¼ºÀÚ
+	// ìƒì„±ì
 }
 
 label_text_store::~label_text_store()
 {
-	// ¼Ò¸êÀÚ
+	// ì†Œë©¸ì
 }
 
 void label_text_store::init()
 {
-	// ¸ğµç ¶óº§ ÃÊ±âÈ­
+	// ëª¨ë“  ë¼ë²¨ ì´ˆê¸°í™”
 	labels.clear();
 	main_font.create_atlas();
 	total_char_count = 0;
@@ -22,7 +22,7 @@ void label_text_store::init()
 void label_text_store::add_text(const char* label, glm::vec2 label_loc, glm::vec3 label_color,
 	float geom_scale, float label_angle, float font_size)
 {
-	// ÀÓ½Ã ¿ä¼Ò »ı¼º
+	// ì„ì‹œ ìš”ì†Œ ìƒì„±
 	label_text temp_label;
 	temp_label.label = label;
 	temp_label.label_loc = label_loc;
@@ -30,24 +30,24 @@ void label_text_store::add_text(const char* label, glm::vec2 label_loc, glm::vec
 	temp_label.label_angle = label_angle;
 	temp_label.label_size = font_size;
 
-	// »õ·Î¿î ¿ä¼Ò¸¦ À§ÇÑ °ø°£ È®º¸
+	// ìƒˆë¡œìš´ ìš”ì†Œë¥¼ ìœ„í•œ ê³µê°„ í™•ë³´
 	labels.reserve(labels.size() + 1);
 
-	// ¸ñ·Ï¿¡ Ãß°¡
+	// ëª©ë¡ì— ì¶”ê°€
 	labels.push_back(temp_label);
 
-	// ¹®ÀÚ ¼ö ¾÷µ¥ÀÌÆ®
+	// ë¬¸ì ìˆ˜ ì—…ë°ì´íŠ¸
 	total_char_count = total_char_count + strlen(label);
 }
 
 void label_text_store::set_buffers()
 {
-	// ¸ğµ¨ÀÇ ·¹ÀÌºí Á¤Á¡ Á¤ÀÇ (4 °³ÀÇ Á¤Á¡À¸·Î »ç°¢ÇüÀ» Çü¼ºÇÏ´Âµ¥, 2 °³ÀÇ À§Ä¡, 2 °³ÀÇ ¿øÁ¡, 2 °³ÀÇ ÅØ½ºÃ³ ÁÂÇ¥, 1 °³ÀÇ ¹®ÀÚ ID)
+	// ëª¨ë¸ì˜ ë ˆì´ë¸” ì •ì  ì •ì˜ (4 ê°œì˜ ì •ì ìœ¼ë¡œ ì‚¬ê°í˜•ì„ í˜•ì„±í•˜ëŠ”ë°, 2 ê°œì˜ ìœ„ì¹˜, 2 ê°œì˜ ì›ì , 2 ê°œì˜ í…ìŠ¤ì²˜ ì¢Œí‘œ, 1 ê°œì˜ ë¬¸ì ID)
 
 	unsigned int label_vertex_count = 4 * 6 * total_char_count;
 	float* label_vertices = new float[label_vertex_count];
 
-	// 6 °³ÀÇ ÀÎµ¦½º·Î »ï°¢ÇüÀ» Çü¼º
+	// 6 ê°œì˜ ì¸ë±ìŠ¤ë¡œ ì‚¼ê°í˜•ì„ í˜•ì„±
 	unsigned int label_indices_count = 6 * total_char_count;
 	unsigned int* label_indices = new unsigned int[label_indices_count];
 
@@ -56,23 +56,23 @@ void label_text_store::set_buffers()
 
 	for (auto& lb : labels)
 	{
-		// °¢ ¹®ÀÚ¿¡ ´ëÇÑ ¹öÆÛ Ã¤¿ì±â
+		// ê° ë¬¸ìì— ëŒ€í•œ ë²„í¼ ì±„ìš°ê¸°
 		get_buffer(lb, label_vertices, label_v_index, label_indices, label_i_index);
 	}
 
-	// ·¹ÀÌ¾Æ¿ô »ı¼º
+	// ë ˆì´ì•„ì›ƒ ìƒì„±
 	VertexBufferLayout label_layout;
-	label_layout.AddFloat(2);  // À§Ä¡
-	label_layout.AddFloat(2);  // ¿øÁ¡
-	label_layout.AddFloat(2);  // ÅØ½ºÃ³ ÁÂÇ¥
+	label_layout.AddFloat(2);  // ìœ„ì¹˜
+	label_layout.AddFloat(2);  // ì›ì 
+	label_layout.AddFloat(2);  // í…ìŠ¤ì²˜ ì¢Œí‘œ
 
 	unsigned int label_vertex_size = label_vertex_count * sizeof(float);
 
-	// ¹öÆÛ »ı¼º
+	// ë²„í¼ ìƒì„±
 	label_buffers.createBuffers((void*)label_vertices, label_vertex_size,
 		(unsigned int*)label_indices, label_indices_count, label_layout, GL_STATIC_DRAW);
 
-	// Èü¿¡¼­ µ¿Àû ¹è¿­ »èÁ¦
+	// í™ì—ì„œ ë™ì  ë°°ì—´ ì‚­ì œ
 	delete[] label_vertices;
 	delete[] label_indices;
 }
@@ -83,7 +83,7 @@ void label_text_store::clear_buffers()
 
 void label_text_store::paint_text()
 {
-	// ¸ğµç ¶óº§ ±×¸®±â
+	// ëª¨ë“  ë¼ë²¨ ê·¸ë¦¬ê¸°
 	label_buffers.Bind();
 
 	glActiveTexture(GL_TEXTURE0);
@@ -99,7 +99,7 @@ void label_text_store::paint_text()
 void label_text_store::get_buffer(label_text& lb,
 	float* vertices, unsigned int& vertex_index, unsigned int* indices, unsigned int& indices_index)
 {
-	// À§Ä¡ ÁÂÇ¥ ÀúÀå
+	// ìœ„ì¹˜ ì¢Œí‘œ ì €ì¥
 	glm::vec2 loc = lb.label_loc;
 	float x = loc.x;
 	float y = loc.y;
@@ -109,95 +109,95 @@ void label_text_store::get_buffer(label_text& lb,
 
 	for (int i = 0; lb.label[i] != '\0'; ++i) 
 	{
-		// ±Û¸®ÇÁ Á¤º¸ °¡Á®¿À±â
+		// ê¸€ë¦¬í”„ ì •ë³´ ê°€ì ¸ì˜¤ê¸°
 		char ch = lb.label[i];
 
 		Character ch_data =	main_font.ch_atlas[ch];
 
-		float xpos = x + (ch_data.Bearing.x * scale); // ÁÂ»ó´Ü
+		float xpos = x + (ch_data.Bearing.x * scale); // ì¢Œìƒë‹¨
 		float ypos = y - (ch_data.Size.y - ch_data.Bearing.y) * scale;
 
 		float w = ch_data.Size.x * scale;
 		float h = ch_data.Size.y * scale;
 
-		float margin = 0.00001; // ·»´õ¸µÇÒ ¶§ ´ÙÀ½ ¹®ÀÚ¿ÍÀÇ ¹Ì¼¼ÇÑ ¿À¹ö·¦ ¹æÁö¸¦ À§ÇÑ °ª
+		float margin = 0.00001; // ë Œë”ë§í•  ë•Œ ë‹¤ìŒ ë¬¸ìì™€ì˜ ë¯¸ì„¸í•œ ì˜¤ë²„ë© ë°©ì§€ë¥¼ ìœ„í•œ ê°’
 
-		// Á¡ 1
-		// Vertices [0,0] // Ã¹ ¹øÂ° Á¡
+		// ì  1
+		// Vertices [0,0] // ì²« ë²ˆì§¸ ì 
 		rotated_pt = rotate_pt(loc, glm::vec2(xpos, ypos + h), lb.label_angle);
 
 		vertices[vertex_index + 0] = rotated_pt.x;
 		vertices[vertex_index + 1] = rotated_pt.y;
 
-		// ¶óº§ ¿øÁ¡
+		// ë¼ë²¨ ì›ì 
 		vertices[vertex_index + 2] = loc.x;
 		vertices[vertex_index + 3] = loc.y;
 
-		// ÅØ½ºÃ³ ±Û¸®ÇÁ ÁÂÇ¥
+		// í…ìŠ¤ì²˜ ê¸€ë¦¬í”„ ì¢Œí‘œ
 		vertices[vertex_index + 4] = ch_data.top_left.x + margin;
 		vertices[vertex_index + 5] = ch_data.top_left.y;
 
-		// ¹İº¹
+		// ë°˜ë³µ
 		vertex_index = vertex_index + 6;
 
 		//__________________________________________________________________________________________
 
-		// Á¡ 2
-		// Vertices [0,1] // µÎ ¹øÂ° Á¡
+		// ì  2
+		// Vertices [0,1] // ë‘ ë²ˆì§¸ ì 
 		rotated_pt = rotate_pt(loc, glm::vec2(xpos, ypos), lb.label_angle);
 
 		vertices[vertex_index + 0] = rotated_pt.x;
 		vertices[vertex_index + 1] = rotated_pt.y;
 
-		// ¶óº§ ¿øÁ¡
+		// ë¼ë²¨ ì›ì 
 		vertices[vertex_index + 2] = loc.x;
 		vertices[vertex_index + 3] = loc.y;
 
-		// ÅØ½ºÃ³ ±Û¸®ÇÁ ÁÂÇ¥
+		// í…ìŠ¤ì²˜ ê¸€ë¦¬í”„ ì¢Œí‘œ
 		vertices[vertex_index + 4] = ch_data.top_left.x+ margin;
 		vertices[vertex_index + 5] = ch_data.bot_right.y;
 
-		// ¹İº¹
+		// ë°˜ë³µ
 		vertex_index = vertex_index + 6;
 
 		//__________________________________________________________________________________________
 
-		// Á¡ 3
-		// Vertices [1,1] // ¼¼ ¹øÂ° Á¡
+		// ì  3
+		// Vertices [1,1] // ì„¸ ë²ˆì§¸ ì 
 		rotated_pt = rotate_pt(loc, glm::vec2(xpos+w, ypos), lb.label_angle);
 
 		vertices[vertex_index + 0] = rotated_pt.x;
 		vertices[vertex_index + 1] = rotated_pt.y;
 
-		// ¶óº§ ¿øÁ¡
+		// ë¼ë²¨ ì›ì 
 		vertices[vertex_index + 2] = loc.x;
 		vertices[vertex_index + 3] = loc.y;
 
-		// ÅØ½ºÃ³ ±Û¸®ÇÁ ÁÂÇ¥
+		// í…ìŠ¤ì²˜ ê¸€ë¦¬í”„ ì¢Œí‘œ
 		vertices[vertex_index + 4] = ch_data.bot_right.x - margin;
 		vertices[vertex_index + 5] = ch_data.bot_right.y;
 
-		// ¹İº¹
+		// ë°˜ë³µ
 		vertex_index = vertex_index + 6;
 
 		//__________________________________________________________________________________________
 
-		// Á¡ 4
-		// Vertices [1,0] // ³× ¹øÂ° Á¡
+		// ì  4
+		// Vertices [1,0] // ë„¤ ë²ˆì§¸ ì 
 		rotated_pt = rotate_pt(loc, glm::vec2(xpos + w, ypos+h), lb.label_angle);
 
 		vertices[vertex_index + 0] = rotated_pt.x;
 		vertices[vertex_index + 1] = rotated_pt.y;
 
-		// ¶óº§ ¿øÁ¡
+		// ë¼ë²¨ ì›ì 
 		vertices[vertex_index + 2] = loc.x;
 		vertices[vertex_index + 3] = loc.y;
 
-		// ÅØ½ºÃ³ ±Û¸®ÇÁ ÁÂÇ¥
+		// í…ìŠ¤ì²˜ ê¸€ë¦¬í”„ ì¢Œí‘œ
 		vertices[vertex_index + 4] = ch_data.bot_right.x - margin;
 		vertices[vertex_index + 5] = ch_data.top_left.y;
 
-		// ¹İº¹
+		// ë°˜ë³µ
 		vertex_index = vertex_index + 6;
 
 		//__________________________________________________________________________________________
@@ -206,20 +206,20 @@ void label_text_store::get_buffer(label_text& lb,
 		//__________________________________________________________________________________________
 
 
-		// ÀÎµ¦½º ¹öÆÛ ¼öÁ¤
-		// ³ëµå ÀÎµ¦½º ¼³Á¤
+		// ì¸ë±ìŠ¤ ë²„í¼ ìˆ˜ì •
+		// ë…¸ë“œ ì¸ë±ìŠ¤ ì„¤ì •
 		unsigned int t_id = ((indices_index / 6) * 4);
-		// »ï°¢Çü 0,1,2
+		// ì‚¼ê°í˜• 0,1,2
 		indices[indices_index + 0] = t_id + 0;
 		indices[indices_index + 1] = t_id + 1;
 		indices[indices_index + 2] = t_id + 2;
 
-		// »ï°¢Çü 2,3,0
+		// ì‚¼ê°í˜• 2,3,0
 		indices[indices_index + 3] = t_id + 2;
 		indices[indices_index + 4] = t_id + 3;
 		indices[indices_index + 5] = t_id + 0;
 
-		// Áõ°¡
+		// ì¦ê°€
 		indices_index = indices_index + 6;
 	}
 
@@ -228,15 +228,15 @@ void label_text_store::get_buffer(label_text& lb,
 
 glm::vec2 label_text_store::rotate_pt(glm::vec2& rotate_about, glm::vec2 pt, float& rotation_angle)
 {
-	// È¸Àü ÁöÁ¡ ¹İÈ¯
+	// íšŒì „ ì§€ì  ë°˜í™˜
 	glm::vec2 translated_pt = pt - rotate_about;
 
-	// È¸Àü Àû¿ë
-	float radians = (rotation_angle * 3.14159365f) / 180.0f; // °¢µµ¸¦ ¶óµğ¾ÈÀ¸·Î º¯È¯
+	// íšŒì „ ì ìš©
+	float radians = (rotation_angle * 3.14159365f) / 180.0f; // ê°ë„ë¥¼ ë¼ë””ì•ˆìœ¼ë¡œ ë³€í™˜
 	float cos_theta = cos(radians);
 	float sin_theta = sin(radians);
 
-	// º¯È¯µÈ ¸ğ¼­¸®ÀÇ È¸ÀüµÈ ÁöÁ¡
+	// ë³€í™˜ëœ ëª¨ì„œë¦¬ì˜ íšŒì „ëœ ì§€ì 
 	glm::vec2 rotated_pt = glm::vec2((translated_pt.x * cos_theta) - (translated_pt.y * sin_theta),
 		(translated_pt.x * sin_theta) + (translated_pt.y * cos_theta));
 

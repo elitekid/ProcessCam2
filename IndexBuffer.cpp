@@ -1,4 +1,4 @@
-#include "IndexBuffer.h"
+﻿#include "IndexBuffer.h"
 IndexBuffer::IndexBuffer()
 	:ib_id(0),m_count(0)
 {

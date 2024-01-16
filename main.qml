@@ -111,7 +111,7 @@ ApplicationWindow {
             text: qsTr("Run")
             font.pointSize: 12
             onClicked: {
-                camObj.showCam(comboBox.currentIndex, settingManager.getColorCode());
+                qtCamObj.showCam(comboBox.currentIndex, settingManager.getColorCode());
             }
         }
     }

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <iostream>
 #include <map>
 #include <string>
@@ -15,39 +15,39 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
-/// FreeTypeÀ» »ç¿ëÇÏ¿© ·ÎµåµÈ ±ÛÀÚ¿Í °ü·ÃµÈ ¸ğµç »óÅÂ Á¤º¸¸¦ º¸À¯ÇÏ´Â ±¸Á¶Ã¼
+/// FreeTypeì„ ì‚¬ìš©í•˜ì—¬ ë¡œë“œëœ ê¸€ìì™€ ê´€ë ¨ëœ ëª¨ë“  ìƒíƒœ ì •ë³´ë¥¼ ë³´ìœ í•˜ëŠ” êµ¬ì¡°ì²´
 struct Character
 {
-    glm::ivec2 Size;     // ±Û¸®ÇÁÀÇ Å©±â (Æø ¹× ³ôÀÌ)
-    glm::ivec2 Bearing;  // º£ÀÌ½º¶óÀÎ¿¡¼­ ±Û¸®ÇÁÀÇ ¿ŞÂÊ/À§ÂÊ ¿ÀÇÁ¼Â
+    glm::ivec2 Size;     // ê¸€ë¦¬í”„ì˜ í¬ê¸° (í­ ë° ë†’ì´)
+    glm::ivec2 Bearing;  // ë² ì´ìŠ¤ë¼ì¸ì—ì„œ ê¸€ë¦¬í”„ì˜ ì™¼ìª½/ìœ„ìª½ ì˜¤í”„ì…‹
 
-    // ÁÖÀÇ: ¾îµå¹ê½º(Advance)´Â 1/64 ÇÈ¼¿ÀÇ ¼öÀÔ´Ï´Ù.
-    // (ch.Advance >> 6) // 6ºñÆ® ¿À¸¥ÂÊÀ¸·Î ½ÃÇÁÆ®ÇÏ¿© ÇÈ¼¿ °ªÀ¸·Î º¯È¯ (2^6 = 64)
-    unsigned int Advance;  // ´ÙÀ½ ±Û¸®ÇÁ·Î ÀüÁøÇÏ±â À§ÇÑ ¼öÆò ¿ÀÇÁ¼Â
+    // ì£¼ì˜: ì–´ë“œë°´ìŠ¤(Advance)ëŠ” 1/64 í”½ì…€ì˜ ìˆ˜ì…ë‹ˆë‹¤.
+    // (ch.Advance >> 6) // 6ë¹„íŠ¸ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ì‹œí”„íŠ¸í•˜ì—¬ í”½ì…€ ê°’ìœ¼ë¡œ ë³€í™˜ (2^6 = 64)
+    unsigned int Advance;  // ë‹¤ìŒ ê¸€ë¦¬í”„ë¡œ ì „ì§„í•˜ê¸° ìœ„í•œ ìˆ˜í‰ ì˜¤í”„ì…‹
 
-    glm::vec2 top_left;   // ¾ÆÆ²¶ó½º¿¡¼­ ÀÌ ¹®ÀÚÀÇ À§Ä¡ - ÁÂ»ó´Ü [0,0]
-    glm::vec2 bot_right;  // ¾ÆÆ²¶ó½º¿¡¼­ ÀÌ ¹®ÀÚÀÇ À§Ä¡ - ¿ìÇÏ´Ü [1,1]
+    glm::vec2 top_left;   // ì•„í‹€ë¼ìŠ¤ì—ì„œ ì´ ë¬¸ìì˜ ìœ„ì¹˜ - ì¢Œìƒë‹¨ [0,0]
+    glm::vec2 bot_right;  // ì•„í‹€ë¼ìŠ¤ì—ì„œ ì´ ë¬¸ìì˜ ìœ„ì¹˜ - ìš°í•˜ë‹¨ [1,1]
 };
 
 class font_atlas
 {
 public:
-    bool atlasCreated = false;   // ¾ÆÆ²¶ó½º »ı¼º ¿©ºÎ ÇÃ·¡±×
-    unsigned int textureID;     // ÅØ½ºÃ³ ½Äº°ÀÚ
-    unsigned int TextureWidth;  // ¾ÆÆ²¶ó½ºÀÇ ÀüÃ¼ ³Êºñ
-    unsigned int TextureHeight; // ¾ÆÆ²¶ó½ºÀÇ ÀüÃ¼ ³ôÀÌ
-    std::map<char, Character> ch_atlas; // ¹®ÀÚ¿Í ±×¿¡ ´ëÇÑ Á¤º¸¸¦ ¸ÅÇÎÇÏ´Â ¸Ê
+    bool atlasCreated = false;   // ì•„í‹€ë¼ìŠ¤ ìƒì„± ì—¬ë¶€ í”Œë˜ê·¸
+    unsigned int textureID;     // í…ìŠ¤ì²˜ ì‹ë³„ì
+    unsigned int TextureWidth;  // ì•„í‹€ë¼ìŠ¤ì˜ ì „ì²´ ë„ˆë¹„
+    unsigned int TextureHeight; // ì•„í‹€ë¼ìŠ¤ì˜ ì „ì²´ ë†’ì´
+    std::map<char, Character> ch_atlas; // ë¬¸ìì™€ ê·¸ì— ëŒ€í•œ ì •ë³´ë¥¼ ë§¤í•‘í•˜ëŠ” ë§µ
 
     font_atlas();
     ~font_atlas();
 
-    // ¾ÆÆ²¶ó½º¸¦ »ı¼ºÇÏ´Â ÇÔ¼ö
+    // ì•„í‹€ë¼ìŠ¤ë¥¼ ìƒì„±í•˜ëŠ” í•¨ìˆ˜
     void create_atlas();
 
-    // ¾ÆÆ²¶ó½º¸¦ ¹ÙÀÎµùÇÏ´Â ÇÔ¼ö
+    // ì•„í‹€ë¼ìŠ¤ë¥¼ ë°”ì¸ë”©í•˜ëŠ” í•¨ìˆ˜
     void Bind_atlas();
 
-    // ¾ÆÆ²¶ó½º¸¦ ¾ğ¹ÙÀÎµùÇÏ´Â ÇÔ¼ö
+    // ì•„í‹€ë¼ìŠ¤ë¥¼ ì–¸ë°”ì¸ë”©í•˜ëŠ” í•¨ìˆ˜
     void UnBind_atlas();
 
 };

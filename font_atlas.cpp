@@ -1,10 +1,9 @@
-
+ï»¿
 #include "font_atlas.h"
 
 font_atlas::font_atlas()
 	:textureID(0), TextureWidth(0), TextureHeight(0)
 {
-
 }
 
 font_atlas::~font_atlas()
@@ -146,6 +145,6 @@ void font_atlas::create_atlas()
 	FT_Done_Face(face);
 	FT_Done_FreeType(ft);
 
-	// atlas°¡ »ı¼ºµÇ¾úÀ½À» Ç¥½Ã
+	// atlasê°€ ìƒì„±ë˜ì—ˆìŒì„ í‘œì‹œ
 	atlasCreated = true;
 }

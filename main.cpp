@@ -7,7 +7,7 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
 
-#include "opencvwidget.h"
+#include "qtCamObj.h"
 #include "cameralistmodel.h"
 #include "settingmanager.h"
 
@@ -24,10 +24,10 @@ int main(int argc, char* argv[])
     QQmlApplicationEngine engine;
 
     // Cam 객체 생성
-    CamObj camObj;
+    QtCamObj qtCamObj;
 
     // QQmlContext에 Cam 객체 등록
-    engine.rootContext()->setContextProperty("camObj", &camObj);
+    engine.rootContext()->setContextProperty("qtCamObj", &qtCamObj);
 
     // 연결된 카메라 목록을 관리하는 모델 객체 생성
     CameraListModel cameraListModel;

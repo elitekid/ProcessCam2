@@ -1,4 +1,4 @@
-#include "VertexBuffer.h"
+ï»¿#include "VertexBuffer.h"
 
 VertexBuffer::VertexBuffer()
     : vb_id(0)
@@ -7,23 +7,23 @@ VertexBuffer::VertexBuffer()
 
 VertexBuffer::~VertexBuffer()
 {
-    // Á¤Á¡ ¹öÆÛ ID°¡ À¯È¿ÇÑÁö È®ÀÎ
+    // ì •ì  ë²„í¼ IDê°€ ìœ íš¨í•œì§€ í™•ì¸
     if (this->vb_id != 0) {
-        // Á¤Á¡ ¹öÆÛ »èÁ¦
+        // ì •ì  ë²„í¼ ì‚­ì œ
         glDeleteBuffers(1, &vb_id);
     }
-    // Ãß°¡ÀûÀÎ Á¤¸® ¶Ç´Â ÇÊ¿äÇÑ °æ¿ì ·Î±ë
+    // ì¶”ê°€ì ì¸ ì •ë¦¬ ë˜ëŠ” í•„ìš”í•œ ê²½ìš° ë¡œê¹…
 }
 
 void VertexBuffer::deleteVertexBuffer()
 {
-    // Á¤Á¡ ¹öÆÛ »èÁ¦
+    // ì •ì  ë²„í¼ ì‚­ì œ
     glDeleteBuffers(1, &vb_id);
 }
 
 void VertexBuffer::createVertexBuffer(const void* data, unsigned int size, GLenum usage)
 {
-    // ÁÖ »ı¼ºÀÚ
+    // ì£¼ ìƒì„±ì
     glGenBuffers(1, &vb_id);
     glBindBuffer(GL_ARRAY_BUFFER, vb_id);
     glBufferData(GL_ARRAY_BUFFER, size, data, usage);
@@ -31,19 +31,19 @@ void VertexBuffer::createVertexBuffer(const void* data, unsigned int size, GLenu
 
 void VertexBuffer::updateBuffer(const void* data, unsigned int size, GLenum usage)
 {
-    // ¹öÆÛ ¾÷µ¥ÀÌÆ®
+    // ë²„í¼ ì—…ë°ì´íŠ¸
     glBindBuffer(GL_ARRAY_BUFFER, vb_id);
     glBufferData(GL_ARRAY_BUFFER, size, data, usage);
 }
 
 void VertexBuffer::Bind() const
 {
-    // ÇöÀçÀÇ Á¤Á¡ ¹öÆÛ¸¦ ID·Î ¹ÙÀÎµù
+    // í˜„ì¬ì˜ ì •ì  ë²„í¼ë¥¼ IDë¡œ ë°”ì¸ë”©
     glBindBuffer(GL_ARRAY_BUFFER, vb_id);
 }
 
 void VertexBuffer::UnBind() const
 {
-    // ÇöÀç ¹ÙÀÎµùµÈ Á¤Á¡ ¹öÆÛ °´Ã¼ ¾ğ¹ÙÀÎµå
+    // í˜„ì¬ ë°”ì¸ë”©ëœ ì •ì  ë²„í¼ ê°ì²´ ì–¸ë°”ì¸ë“œ
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }

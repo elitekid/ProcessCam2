@@ -1,17 +1,17 @@
-#include "util.h"
+ï»¿#include "util.h"
 
 void Utils::hexToNormalizedFloat(const std::string & hexCode, float& red, float& green, float& blue) {
-    // HEX ¹®ÀÚ¿­À» 2ÀÚ¸®¾¿ ²÷¾î¼­ 16Áø¼ö·Î º¯È¯
+    // HEX ë¬¸ìì—´ì„ 2ìë¦¬ì”© ëŠì–´ì„œ 16ì§„ìˆ˜ë¡œ ë³€í™˜
     std::string redHex = hexCode.substr(0, 2);
     std::string greenHex = hexCode.substr(2, 2);
     std::string blueHex = hexCode.substr(4, 2);
 
-    // 16Áø¼ö¸¦ Á¤¼ö·Î º¯È¯ÇÏ¿© 0~255 ¹üÀ§·Î ÀúÀå
+    // 16ì§„ìˆ˜ë¥¼ ì •ìˆ˜ë¡œ ë³€í™˜í•˜ì—¬ 0~255 ë²”ìœ„ë¡œ ì €ì¥
     int redInt = std::stoi(redHex, nullptr, 16);
     int greenInt = std::stoi(greenHex, nullptr, 16);
     int blueInt = std::stoi(blueHex, nullptr, 16);
 
-    // Á¤±ÔÈ­ÇÏ¿© 0.0 ~ 1.0 ¹üÀ§·Î ÀúÀå
+    // ì •ê·œí™”í•˜ì—¬ 0.0 ~ 1.0 ë²”ìœ„ë¡œ ì €ì¥
     red = static_cast<float>(redInt) / 255.0f;
     green = static_cast<float>(greenInt) / 255.0f;
     blue = static_cast<float>(blueInt) / 255.0f;
@@ -20,7 +20,7 @@ void Utils::hexToNormalizedFloat(const std::string & hexCode, float& red, float&
 std::vector<int> Utils::findCommonDivisors(int num1, int num2) {
     std::vector<int> commonDivisors;
 
-    // µÎ ¼ıÀÚ Áß ÀÛÀº ¼ıÀÚ±îÁö¸¸ ¹İº¹ÇÏ¿© °ø¾à¼ö¸¦ Ã£½À´Ï´Ù.
+    // ë‘ ìˆ«ì ì¤‘ ì‘ì€ ìˆ«ìê¹Œì§€ë§Œ ë°˜ë³µí•˜ì—¬ ê³µì•½ìˆ˜ë¥¼ ì°¾ìŠµë‹ˆë‹¤.
     int smallerNum = (num1 < num2) ? num1 : num2;
     for (int i = 1; i <= smallerNum; ++i) {
         if (num1 % i == 0 && num2 % i == 0) {
@@ -32,29 +32,29 @@ std::vector<int> Utils::findCommonDivisors(int num1, int num2) {
 }
 
 void Utils::calcNDS(int w, int h, float x, float y, float squareSize, std::vector<float>& vertices) {
-    // Á¤»ç°¢ÇüÀÇ Áß½É ÁÂÇ¥ (20, 20)¸¦ NDC·Î ¸ÅÇÎ
+    // ì •ì‚¬ê°í˜•ì˜ ì¤‘ì‹¬ ì¢Œí‘œ (20, 20)ë¥¼ NDCë¡œ ë§¤í•‘
     float ndcX = (x / w) * 2.0f - 1.0f;
     float ndcY = 1.0f - (y / h) * 2.0f;
 
-    // Á¤»ç°¢ÇüÀÇ Å©±â¸¦ NDC·Î ¸ÅÇÎ
+    // ì •ì‚¬ê°í˜•ì˜ í¬ê¸°ë¥¼ NDCë¡œ ë§¤í•‘
     float ndcSizeX = (squareSize / w) * 2.0f;
     float ndcSizeY = (squareSize / h) * 2.0f;
 
-    // Á¤»ç°¢ÇüÀÇ ²ÀÁöÁ¡ ÁÂÇ¥ °è»ê
+    // ì •ì‚¬ê°í˜•ì˜ ê¼­ì§€ì  ì¢Œí‘œ ê³„ì‚°
     float topLeftX = ndcX - (ndcSizeX / 2.0f);
     float topLeftY = ndcY + (ndcSizeY / 2.0f);
 
     float bottomRightX = ndcX + (ndcSizeX / 2.0f);
     float bottomRightY = ndcY - (ndcSizeY / 2.0f);
 
-    // ÁÂÇ¥¸¸ ³Ö±â
+    // ì¢Œí‘œë§Œ ë„£ê¸°
     vertices.insert(vertices.end(), {
-        topLeftX, topLeftY, 0.0f,  // ¿ŞÂÊ »ó´Ü
-        bottomRightX, topLeftY, 0.0f,  // ¿À¸¥ÂÊ »ó´Ü
-        bottomRightX, bottomRightY, 0.0f,   // ¿À¸¥ÂÊ ÇÏ´Ü
+        topLeftX, topLeftY, 0.0f,  // ì™¼ìª½ ìƒë‹¨
+        bottomRightX, topLeftY, 0.0f,  // ì˜¤ë¥¸ìª½ ìƒë‹¨
+        bottomRightX, bottomRightY, 0.0f,   // ì˜¤ë¥¸ìª½ í•˜ë‹¨
 
-        topLeftX, topLeftY, 0.0f,   // ¿ŞÂÊ »ó´Ü
-        bottomRightX, bottomRightY, 0.0f,   // ¿À¸¥ÂÊ ÇÏ´Ü
-        topLeftX, bottomRightY, 0.0f   // ¿ŞÂÊ ÇÏ´Ü
+        topLeftX, topLeftY, 0.0f,   // ì™¼ìª½ ìƒë‹¨
+        bottomRightX, bottomRightY, 0.0f,   // ì˜¤ë¥¸ìª½ í•˜ë‹¨
+        topLeftX, bottomRightY, 0.0f   // ì™¼ìª½ í•˜ë‹¨
      });
 }

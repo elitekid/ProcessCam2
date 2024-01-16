@@ -1,4 +1,4 @@
-#include "shader.h"
+﻿#include "shader.h"
 
 shader::shader()
 	:s_id(0), uniform_location_cache()

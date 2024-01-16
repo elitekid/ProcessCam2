@@ -41,7 +41,7 @@
     <ClCompile Include="cameralistmodel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="camera.cpp">
+    <ClCompile Include="qtCamObj.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="font_atlas.cpp">
@@ -65,9 +65,6 @@
     <ClCompile Include="VertexBufferLayout.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="stb_implement.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="text_geom_store.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -86,15 +83,24 @@
     <ClCompile Include="box_geom_store.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="frame_info.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="frame_info.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="settingmanager.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="opencvwidget.h">
+    <QtMoc Include="cameralistmodel.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="cameralistmodel.h">
+    <QtMoc Include="qtCamObj.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -108,12 +114,10 @@
     <None Include="camera_frag_shader.vert" />
     <None Include="box_frag_shader.frag" />
     <None Include="box_frag_shader.vert" />
+    <None Include=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="textarea.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="font_atlas.h">
@@ -137,12 +141,6 @@
     <ClInclude Include="IndexBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="stb_image.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="stb_implement.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="text_geom_store.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -159,6 +157,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="box_geom_store.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

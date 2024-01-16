@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 // can't put #define STB_IMAGE_IMPLEMENTATION in a header file. 
 // Only one source file can see the #define.
 // So the STB implementation is done in stb_implement.cpp to avoid linker error

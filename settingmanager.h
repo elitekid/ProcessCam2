@@ -1,4 +1,4 @@
-#ifndef SETTINGMANAGER_H
+﻿#ifndef SETTINGMANAGER_H
 #define SETTINGMANAGER_H
 
 #include <QObject>

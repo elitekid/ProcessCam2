@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include<iostream>
 #include<fstream>
@@ -19,34 +19,34 @@
 class shader
 {
 private:
-	// ¸â¹ö º¯¼ö
-	unsigned int s_id; // OpenGL ÇÁ·Î±×·¥ ID
+	// ë©¤ë²„ ë³€ìˆ˜
+	unsigned int s_id; // OpenGL í”„ë¡œê·¸ë¨ ID
 	std::unordered_map<std::string, int> uniform_location_cache;
-	std::string loadShaderSource(const char* fileName); // ÆÄÀÏ¿¡¼­ ¼ÎÀÌ´õ ¼Ò½º¸¦ ·ÎµåÇÏ´Â ÇÔ¼ö
-	unsigned int loadShader(GLenum type, const char* fileName); // ÁÖ¾îÁø Å¸ÀÔÀÇ ¼ÎÀÌ´õ¸¦ ·ÎµåÇÏ´Â ÇÔ¼ö
-	void linkProgram(unsigned int vertexShader, unsigned int fragmentShader); // ¼ÎÀÌ´õ ÇÁ·Î±×·¥À» ¸µÅ©ÇÏ´Â ÇÔ¼ö
+	std::string loadShaderSource(const char* fileName); // íŒŒì¼ì—ì„œ ì…°ì´ë” ì†ŒìŠ¤ë¥¼ ë¡œë“œí•˜ëŠ” í•¨ìˆ˜
+	unsigned int loadShader(GLenum type, const char* fileName); // ì£¼ì–´ì§„ íƒ€ì…ì˜ ì…°ì´ë”ë¥¼ ë¡œë“œí•˜ëŠ” í•¨ìˆ˜
+	void linkProgram(unsigned int vertexShader, unsigned int fragmentShader); // ì…°ì´ë” í”„ë¡œê·¸ë¨ì„ ë§í¬í•˜ëŠ” í•¨ìˆ˜
 	int get_uniform_location(const std::string uniform_name);
 public:
-	// »ı¼ºÀÚ/¼Ò¸êÀÚ
+	// ìƒì„±ì/ì†Œë©¸ì
 	shader();
-	~shader(); // OpenGL ÀÚ¿øÀ» Á¤¸®ÇÏ´Â ¼Ò¸êÀÚ
+	~shader(); // OpenGL ìì›ì„ ì •ë¦¬í•˜ëŠ” ì†Œë©¸ì
 
-	void create_shader(const char* vertexFile, const char* fragmentFile); // ¹öÅØ½º¿Í ÇÁ·¡±×¸ÕÆ® ¼ÎÀÌ´õ ÆÄÀÏ °æ·Î¸¦ ¹Ş´Â ÇÔ¼ö
-	// ¼ÎÀÌ´õ »ç¿ë ÇÔ¼ö
-	void Bind(); // ¼ÎÀÌ´õ ÇÁ·Î±×·¥À» »ç¿ëÇÏ´Â ÇÔ¼ö
-	void UnBind(); // ¼ÎÀÌ´õ ÇÁ·Î±×·¥ »ç¿ëÀ» Áß´ÜÇÏ´Â ÇÔ¼ö
+	void create_shader(const char* vertexFile, const char* fragmentFile); // ë²„í…ìŠ¤ì™€ í”„ë˜ê·¸ë¨¼íŠ¸ ì…°ì´ë” íŒŒì¼ ê²½ë¡œë¥¼ ë°›ëŠ” í•¨ìˆ˜
+	// ì…°ì´ë” ì‚¬ìš© í•¨ìˆ˜
+	void Bind(); // ì…°ì´ë” í”„ë¡œê·¸ë¨ì„ ì‚¬ìš©í•˜ëŠ” í•¨ìˆ˜
+	void UnBind(); // ì…°ì´ë” í”„ë¡œê·¸ë¨ ì‚¬ìš©ì„ ì¤‘ë‹¨í•˜ëŠ” í•¨ìˆ˜
 
-	// À¯´ÏÆû ¼³Á¤ ÇÔ¼ö
-	void setUniform(std::string name, float X, float Y); // 2D float À¯´ÏÆû ¼³Á¤ ÇÔ¼ö
-	void setUniform(std::string name, float X, float Y, float Z); // 3D float À¯´ÏÆû ¼³Á¤ ÇÔ¼ö
-	void setUniform(std::string name, float X, float Y, float Z, float W); // 4D float À¯´ÏÆû ¼³Á¤ ÇÔ¼ö
-	void setUniform(std::string name, float X); // float À¯´ÏÆû ¼³Á¤ ÇÔ¼ö
-	void setUniform(std::string name, int X); // Á¤¼ö À¯´ÏÆû ¼³Á¤ ÇÔ¼ö
-	void setUniform(std::string name, glm::mat3 X, bool transpose); // mat3 À¯´ÏÆû ¼³Á¤ ÇÔ¼ö
-	void setUniform(std::string name, glm::mat4 X, bool transpose);  // mat4 À¯´ÏÆû ¼³Á¤ ÇÔ¼ö
-	void setUniform(std::string name, glm::vec4 X); // vec4 À¯´ÏÆû ¼³Á¤ ÇÔ¼ö
-	void setUniform(std::string name, glm::vec3 X); // vec3 À¯´ÏÆû ¼³Á¤ ÇÔ¼ö
-	void setUniform(std::string name, glm::vec2 X); // vec2 À¯´ÏÆû ¼³Á¤ ÇÔ¼ö
-	void setUniform(int i, unsigned int tid); // ÅØ½ºÃ³ À¯´ÏÆû ¼³Á¤ ÇÔ¼ö
+	// ìœ ë‹ˆí¼ ì„¤ì • í•¨ìˆ˜
+	void setUniform(std::string name, float X, float Y); // 2D float ìœ ë‹ˆí¼ ì„¤ì • í•¨ìˆ˜
+	void setUniform(std::string name, float X, float Y, float Z); // 3D float ìœ ë‹ˆí¼ ì„¤ì • í•¨ìˆ˜
+	void setUniform(std::string name, float X, float Y, float Z, float W); // 4D float ìœ ë‹ˆí¼ ì„¤ì • í•¨ìˆ˜
+	void setUniform(std::string name, float X); // float ìœ ë‹ˆí¼ ì„¤ì • í•¨ìˆ˜
+	void setUniform(std::string name, int X); // ì •ìˆ˜ ìœ ë‹ˆí¼ ì„¤ì • í•¨ìˆ˜
+	void setUniform(std::string name, glm::mat3 X, bool transpose); // mat3 ìœ ë‹ˆí¼ ì„¤ì • í•¨ìˆ˜
+	void setUniform(std::string name, glm::mat4 X, bool transpose);  // mat4 ìœ ë‹ˆí¼ ì„¤ì • í•¨ìˆ˜
+	void setUniform(std::string name, glm::vec4 X); // vec4 ìœ ë‹ˆí¼ ì„¤ì • í•¨ìˆ˜
+	void setUniform(std::string name, glm::vec3 X); // vec3 ìœ ë‹ˆí¼ ì„¤ì • í•¨ìˆ˜
+	void setUniform(std::string name, glm::vec2 X); // vec2 ìœ ë‹ˆí¼ ì„¤ì • í•¨ìˆ˜
+	void setUniform(int i, unsigned int tid); // í…ìŠ¤ì²˜ ìœ ë‹ˆí¼ ì„¤ì • í•¨ìˆ˜
 	unsigned int get_shader_id() const;
 };

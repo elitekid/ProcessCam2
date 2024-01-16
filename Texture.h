@@ -1,7 +1,6 @@
-#pragma once
+﻿#pragma once
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "stb_image.h"
 #include <iostream>
 
 class Texture
@@ -9,7 +8,7 @@ class Texture
 public:
 	Texture();
 	~Texture();
-	void load(int cameraWidth, int cameraHeight);
+	void load(int width, int height);
 	void update(unsigned char* cameraData);
 	void bind(unsigned int slot = 0) const;
 	void unBind();

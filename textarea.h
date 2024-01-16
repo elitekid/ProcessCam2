@@ -1,4 +1,4 @@
-#ifndef TEXTAREA_H
+﻿#ifndef TEXTAREA_H
 #define TEXTAREA_H
 
 class TextArea {
