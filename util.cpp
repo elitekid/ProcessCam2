@@ -1,10 +1,10 @@
 ﻿#include "util.h"
 
-void Utils::hexToNormalizedFloat(const std::string & hexCode, float& red, float& green, float& blue) {
+void Utils::hexToNormalizedFloat(const std::string & hex_code, float& red, float& green, float& blue) {
     // HEX 문자열을 2자리씩 끊어서 16진수로 변환
-    std::string redHex = hexCode.substr(0, 2);
-    std::string greenHex = hexCode.substr(2, 2);
-    std::string blueHex = hexCode.substr(4, 2);
+    std::string redHex = hex_code.substr(0, 2);
+    std::string greenHex = hex_code.substr(2, 2);
+    std::string blueHex = hex_code.substr(4, 2);
 
     // 16진수를 정수로 변환하여 0~255 범위로 저장
     int redInt = std::stoi(redHex, nullptr, 16);
@@ -31,14 +31,14 @@ std::vector<int> Utils::findCommonDivisors(int num1, int num2) {
     return commonDivisors;
 }
 
-void Utils::calcNDS(int w, int h, float x, float y, float squareSize, std::vector<float>& vertices) {
+void Utils::calcNDS(int w, int h, float x, float y, float square_size, std::vector<float>& vertices) {
     // 정사각형의 중심 좌표 (20, 20)를 NDC로 매핑
     float ndcX = (x / w) * 2.0f - 1.0f;
     float ndcY = 1.0f - (y / h) * 2.0f;
 
     // 정사각형의 크기를 NDC로 매핑
-    float ndcSizeX = (squareSize / w) * 2.0f;
-    float ndcSizeY = (squareSize / h) * 2.0f;
+    float ndcSizeX = (square_size / w) * 2.0f;
+    float ndcSizeY = (square_size / h) * 2.0f;
 
     // 정사각형의 꼭지점 좌표 계산
     float topLeftX = ndcX - (ndcSizeX / 2.0f);

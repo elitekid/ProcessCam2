@@ -1,6 +1,6 @@
-    #include "qtCamObj.h"
+    #include "qt_camera.h"
 
-    void QtCamObj::processInput(GLFWwindow* window)
+    void QtCamera::processInput(GLFWwindow* window)
     {
         // 종료키 : ESC, 오른쪽 숫자패드의 "-"
         if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_KP_SUBTRACT) == GLFW_PRESS)
@@ -12,14 +12,14 @@
         glad_glViewport(0, 0, width, height);
     }
 
-    QtCamObj::QtCamObj(QObject* parent) : QObject(parent), window(0)
+    QtCamera::QtCamera(QObject* parent) : QObject(parent), window_(0)
     {
     }
 
-    void QtCamObj::showCam(int camNum, QString colorCode)
+    void QtCamera::ShowCam(int camera_num)
     {
         // 카메라 초기화
-        cam.initialize(camNum);
+        cam_.Init(camera_num);
 
         // glfw 초기화
         if (!glfwInit()) {
@@ -34,8 +34,8 @@
         glfwWindowHint(GLFW_SAMPLES, 4);
 
         // 화면 생성
-        window = glfwCreateWindow(cam.getCols(), cam.getRows(), "Webcam Output", NULL, NULL);
-        if (!window) {
+        window_ = glfwCreateWindow(cam_.GetCols(), cam_.GetRows(), "Webcam Output", NULL, NULL);
+        if (!window_) {
             glfwTerminate();
             exit(EXIT_FAILURE);
         }
@@ -46,8 +46,8 @@
         // 전체화면으로 설정
         const GLFWvidmode* mode = glfwGetVideoMode(primary);
         //glfwSetWindowMonitor(window, primary, 0, 0, mode->width, mode->height, mode->refreshRate);
-        glfwMakeContextCurrent(window);
-        glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+        glfwMakeContextCurrent(window_);
+        glfwSetFramebufferSizeCallback(window_, framebuffer_size_callback);
     
 
         // GLAD 로드
@@ -70,24 +70,24 @@
         glad_glEnable(GL_MULTISAMPLE_ARB);
 
         // 캠 화면 스토어 초기화
-        camGeomStore.setCameraGeometry(cam.getCols(), cam.getRows());
+        cam_geom_store_.SetCameraGeometry(cam_.GetCols(), cam_.GetRows());
         // 박스 스토어 초기화
-        boxGeomStore.setBoxGeometry();
+        box_geom_store_.SetBoxGeometry();
         // 텍스트 스토어 초기화
-        textGeomStore.setTextGeometry();
+        text_geom_store_.SetTextGeometry();
 
         glad_glViewport(0, 0, mode->width, mode->height);
 
-        while (!glfwWindowShouldClose(window))
+        while (!glfwWindowShouldClose(window_))
         {
             // 기존 버퍼 삭제
-            textGeomStore.deleteBuffers();
+            text_geom_store_.DeleteBuffers();
 
             // 키보드 입력 관리
-            processInput(window);
+            processInput(window_);
 
             // 화면의 한 프레임 얻기
-            Mat frame = cam.getFrame();
+            Mat frame = cam_.GetFrame();
             // 좌우 반전
             cv::flip(frame, frame, 1);
 
@@ -95,18 +95,18 @@
             glad_glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
             // 화면정보 업데이트
-            frameInfo.updateFrame(frame);
+            frame_info_.UpdateFrame(frame);
 
             // 캠 화면 그리기
-            camGeomStore.drawCam(frame);
+            cam_geom_store_.DrawCam(frame);
             // 사각형 그리기
-            boxGeomStore.drawBox(frameInfo);
+            box_geom_store_.DrawBox(frame_info_);
             // 텍스트 그리기
-            textGeomStore.drawText(frameInfo);
+            text_geom_store_.DrawColorCode(frame_info_);
 
-            glfwSwapBuffers(window);
+            glfwSwapBuffers(window_);
             glfwPollEvents();
         }
-        cam.stop();
+        cam_.Stop();
         glfwTerminate();
     }

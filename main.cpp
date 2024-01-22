@@ -5,11 +5,11 @@
 #include <QtDebug>
 #include <QColor>
 #include <iostream>
-#include <opencv2/opencv.hpp>
+//#include <opencv2/opencv.hpp>
 
-#include "qtCamObj.h"
-#include "cameralistmodel.h"
-#include "settingmanager.h"
+#include "qt_camera.h"
+#include "camera_list_model.h"
+#include "setting_manager.h"
 
 int main(int argc, char* argv[])
 {
@@ -24,20 +24,20 @@ int main(int argc, char* argv[])
     QQmlApplicationEngine engine;
 
     // Cam 객체 생성
-    QtCamObj qtCamObj;
+    QtCamera qt_camera;
 
     // QQmlContext에 Cam 객체 등록
-    engine.rootContext()->setContextProperty("qtCamObj", &qtCamObj);
+    engine.rootContext()->setContextProperty("qt_camera", &qt_camera);
 
     // 연결된 카메라 목록을 관리하는 모델 객체 생성
-    CameraListModel cameraListModel;
+    CameraListModel camera_list_model;
 
     // 설정 관리자 객체 생성
-    SettingManager settingManager;
+    SettingManager setting_manager;
 
     // QQmlContext에 모델 객체 및 설정 관리자 객체 등록
-    engine.rootContext()->setContextProperty("cameraListModel", &cameraListModel);
-    engine.rootContext()->setContextProperty("settingManager", &settingManager);
+    engine.rootContext()->setContextProperty("camera_list_model", &camera_list_model);
+    engine.rootContext()->setContextProperty("setting_manager", &setting_manager);
 
     // QML 파일 로드
     engine.load(QUrl(QStringLiteral("qrc:/qt/qml/processcam2/main.qml")));

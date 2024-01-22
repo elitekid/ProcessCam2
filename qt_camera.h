@@ -1,4 +1,8 @@
-#pragma once
+// Copyright 2024 elitekid
+
+#ifndef QT_CAMERA_H_
+#define QT_CAMERA_H_
+
 #include <windows.h>
 
 #include <glad/glad.h>
@@ -20,28 +24,30 @@ using namespace cv;
 using namespace std;
 using namespace Concurrency;
 
-class QtCamObj : public QObject
+class QtCamera : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit QtCamObj(QObject* parent = nullptr);
+    explicit QtCamera(QObject* parent = nullptr);
 
 signals:
 
 public slots:
-    void showCam(int camNum, QString colorCode);
+    void ShowCam(int camera_num);
 
 private:
-    Camera cam;
+    Camera cam_;
 
-    frame_info frameInfo;
-    cam_geom_store camGeomStore;
-    box_geom_store boxGeomStore;
-    text_geom_store textGeomStore;
+    FrameInfo frame_info_;
+    CamGeomStore cam_geom_store_;
+    BoxGeomStore box_geom_store_;
+    TextGeomStore text_geom_store_;
 
-    GLFWwindow* window;
+    GLFWwindow* window_;
 
 private:
     void processInput(GLFWwindow* window);
 };
+
+#endif  // QT_CAMERA_H_

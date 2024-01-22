@@ -1,284 +1,308 @@
 ﻿#include "shader.h"
 
-shader::shader()
-	:s_id(0), uniform_location_cache()
-{
+Shader::Shader() : id_(0), uniform_locations_() {}
 
+Shader::~Shader() {
+  if (this->id_ != 0) {
+    glDeleteProgram(this->id_);
+  }
 }
 
-// Constructor that takes vertex and fragment shader file names
-void shader::create_shader(const char* vertexFile, const char* fragmentFile)
-{
-	// Load and compile the vertex shader
-	unsigned int vertexShader = loadShader(GL_VERTEX_SHADER, vertexFile);
+void Shader::CreateShaderByPath(const char* vertex_path,
+                                const char* fragment_path) {
+  // 버텍스 셰이더를 생성합니다.
+  unsigned int vertexShader = CreateShader(GL_VERTEX_SHADER, vertex_path);
 
-	// Load and compile the fragment shader
-	unsigned int fragmentShader = loadShader(GL_FRAGMENT_SHADER, fragmentFile);
+  // 프레그먼트 셰이더를 생성합니다.
+  unsigned int fragmentShader = CreateShader(GL_FRAGMENT_SHADER, fragment_path);
 
-	// Link the shader program
-	linkProgram(vertexShader, fragmentShader);
+  // 생성한 셰이더들을 프로그램으로 연결합니다.
+  LinkShaders(vertexShader, fragmentShader);
 
-	// Delete the individual shaders as they are no longer needed after linking
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
+  // 셰이더를 더 이상 사용하지 않으므로 자원을 해제합니다.
+  glDeleteShader(vertexShader);
+  glDeleteShader(fragmentShader);
 }
 
-// Destructor
-shader::~shader()
-{
-	if (this->s_id != 0) {
-		// Delete the shader program
-		glDeleteProgram(this->s_id);
-	}
-}
-
-unsigned int shader::get_shader_id() const
-{
-	return s_id;
+unsigned int Shader::GetShaderId() const {
+	return id_;
 }
 
 // Load shader source from file and return as string
-std::string shader::loadShaderSource(const char* fileName)
-{
-	std::string temp = ""; // Temporary string to store each line of the shader source
-	std::string src = ""; // Final string to store the entire shader source
+std::string Shader::LoadShaderSource(const char* path) {
+  std::string temp =
+      "";  // Temporary string to store each line of the shader source
+  std::string src = "";  // Final string to store the entire shader source
 
-	std::ifstream in_file; // Input file stream for reading from file
+  std::ifstream in_file;  // Input file stream for reading from file
 
-	//std::filesystem::path original_dir = std::filesystem::current_path();
-	//std::filesystem::current_path("C:/Users/HFXMSZ/OneDrive - LR/ Documents/Programming/Other programs/Cpp_projects/Truss_static_analysis_cpp/Truss_static_analysis_cpp/src/geometry_store/shaders/");
+  // std::filesystem::path original_dir = std::filesystem::current_path();
+  // std::filesystem::current_path("C:/Users/HFXMSZ/OneDrive - LR/
+  // Documents/Programming/Other
+  // programs/Cpp_projects/Truss_static_analysis_cpp/Truss_static_analysis_cpp/src/geometry_store/shaders/");
 
-	// Open the file with the given file name
-	in_file.open(fileName);
+  // Open the file with the given file name
+  in_file.open(path);
 
-	// std::filesystem::current_path(original_dir);
+  // std::filesystem::current_path(original_dir);
 
-	if (in_file.is_open()) // Check if file was successfully opened
-	{
-		while (std::getline(in_file, temp)) // Read each line from file
-			src += temp + "\n"; // Append each line to the final shader source string with a newline character
-	}
-	else
-	{
-		std::cout << "ERROR::SHADER::COULD_NOT_OPEN_FILE: " << fileName << "\n"; // Print error message if file could not be opened
-	}
+  if (in_file.is_open())  // Check if file was successfully opened
+  {
+    while (std::getline(in_file, temp))  // Read each line from file
+      src += temp + "\n";  // Append each line to the final shader source string
+                           // with a newline character
+  } else {
+    std::cout << "ERROR::SHADER::COULD_NOT_OPEN_FILE: " << path
+              << "\n";  // Print error message if file could not be opened
+  }
 
-	in_file.close(); // Close the file
+  in_file.close();  // Close the file
 
-	//// Replace the #version directive in the shader source with a default version number
-	//src.replace(src.find("#version"), 12, "#version 330"); // Replace with desired version number
+  //// Replace the #version directive in the shader source with a default
+  ///version number
+  // src.replace(src.find("#version"), 12, "#version 330"); // Replace with
+  // desired version number
 
-	return src; // Return the final shader source string
+  return src;  // Return the final shader source string
 }
 
-// Load shader source from file and compile shader
-unsigned int shader::loadShader(GLenum type,const char* fileName)
-{
-	char infoLog[512];
-	int success;
+// 파일 경로로부터 셰이더 소스를 읽어오고 셰이더를 컴파일합니다.
+unsigned int Shader::CreateShader(GLenum type, const char* source) {
+  char infoLog[512];
+  int success;
 
-	unsigned int shader = glCreateShader(type); // Create a shader object of given type
-	std::string str_src = this->loadShaderSource(fileName); // Load shader source from file
-	const char* src = str_src.c_str(); // Convert shader source to GLchar array
-	glShaderSource(shader, 1, &src, NULL); // Set shader source
-	glCompileShader(shader); // Compile shader source
+  // 주어진 유형의 셰이더 객체를 생성합니다.
+  unsigned int shader = glCreateShader(type);
 
-	glGetShaderiv(shader, GL_COMPILE_STATUS, &success); // Check shader compilation status
-	if (!success)
-	{
-		glGetShaderInfoLog(shader, 512, NULL, infoLog); // Get shader compilation error log
-		std::cout << "ERROR::SHADER::COULD_NOT_COMPILE_SHADER: " << fileName << "\n";
-		std::cout << infoLog << "\n"; // Print shader compilation error log
-	}
+  // 파일에서 셰이더 소스를 읽어옵니다.
+  std::string str_src = this->LoadShaderSource(source);
+  const char* src = str_src.c_str();
 
-	return shader; // Return compiled shader object
+  // 셰이더 소스를 설정하고 컴파일합니다.
+  glShaderSource(shader, 1, &src, NULL);
+  glCompileShader(shader);
+
+  // 셰이더 컴파일 상태를 확인합니다.
+  glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+  if (!success) {
+    glGetShaderInfoLog(shader, 512, NULL, infoLog);
+    std::cout << "ERROR::SHADER::COULD_NOT_COMPILE_SHADER: " << source << "\n";
+    std::cout << infoLog << "\n";
+  }
+
+  return shader;  // 컴파일된 셰이더 객체를 반환합니다.
 }
 
+// 버텍스와 프레그먼트 셰이더를 링크하여 셰이더 프로그램을 생성합니다.
+void Shader::LinkShaders(unsigned int vertex_shader,
+                         unsigned int fragment_shader) {
+  char infoLog[512];
+  int success;
 
-// Link vertex and fragment shaders to create shader program
-void shader::linkProgram(unsigned int vertexShader, unsigned int fragmentShader)
-{
-	char infoLog[512];
-	int success;
+  // 셰이더 프로그램 객체를 생성합니다.
+  this->id_ = glCreateProgram();
 
-	this->s_id = glCreateProgram(); // Create a shader program object
+  // 버텍스 셰이더를 셰이더 프로그램에 첨부합니다.
+  glAttachShader(this->id_, vertex_shader);
 
-	glAttachShader(this->s_id, vertexShader); // Attach vertex shader to shader program
+  // 프레그먼트 셰이더를 셰이더 프로그램에 첨부합니다.
+  glAttachShader(this->id_, fragment_shader);
 
-	glAttachShader(this->s_id, fragmentShader); // Attach fragment shader to shader program
+  // 셰이더 프로그램을 링크합니다.
+  glLinkProgram(this->id_);
 
-	glLinkProgram(this->s_id); // Link shader program
+  // 셰이더 프로그램 링크 상태를 확인합니다.
+  glGetProgramiv(this->id_, GL_LINK_STATUS, &success);
+  if (!success) {
+    glGetProgramInfoLog(this->id_, 512, NULL, infoLog);
+    std::cout << "ERROR::SHADER::COULD_NOT_LINK_PROGRAM"
+              << "\n";
+    std::cout << infoLog << "\n";
+  }
 
-	glGetProgramiv(this->s_id, GL_LINK_STATUS, &success); // Check shader program linking status
-	if (!success)
-	{
-		glGetProgramInfoLog(this->s_id, 512, NULL, infoLog); // Get shader program linking error log
-		std::cout << "ERROR::SHADER::COULD_NOT_LINK_PROGRAM" << "\n";
-		std::cout << infoLog << "\n"; // Print shader program linking error log
-	}
-
-	glUseProgram(0); // Unbind shader program
+  glUseProgram(0);  // 셰이더 프로그램 언바인드
 }
 
-int shader::get_uniform_location(const std::string uniform_name)
-{
-	// Return the uniform location
-	if (uniform_location_cache.find(uniform_name) != uniform_location_cache.end())
-	{
-		return uniform_location_cache[uniform_name];
-	}
+// 셰이더 프로그램에서 uniform 변수의 위치를 가져옵니다.
+int Shader::GetUniformLocation(const std::string& name) {
+  // 이미 해시 테이블에 해당 이름의 위치가 저장되어 있는지 확인합니다.
+  if (uniform_locations_.find(name) != uniform_locations_.end()) {
+    return uniform_locations_[name];
+  }
 
-	// Uniform is not found in the hashtable ? Dictionary
-	// So add it to the dictionary
-	int uniform_location_id = glGetUniformLocation(this->s_id, uniform_name.c_str());
-	uniform_location_cache[uniform_name] = uniform_location_id;
+  // 위치가 저장되어 있지 않다면 glGetUniformLocation 함수를 호출하여 찾고
+  // 저장합니다.
+  int uniform_location_id = glGetUniformLocation(this->id_, name.c_str());
+  uniform_locations_[name] = uniform_location_id;
 
-	return uniform_location_id;
+  return uniform_location_id;
 }
 
-// Bind and un-Bind 
-void shader::Bind()
-{
-	glUseProgram(this->s_id); // Use the shader program
+// 셰이더 프로그램을 활성화하여 사용합니다.
+void Shader::Bind() { glUseProgram(this->id_); }
+
+// 셰이더 프로그램을 비활성화하여 사용하지 않습니다.
+void Shader::UnBind() { glUseProgram(0); }
+
+// 2D float uniform 값을 설정합니다.
+void Shader::SetUniform(const std::string& name, float x, float y) {
+  Bind();  // 셰이더 프로그램을 사용합니다.
+
+  // 제공된 이름으로부터 uniform 위치를 가져옵니다.
+  unsigned int uniformLocation = glGetUniformLocation(this->id_, name.c_str());
+
+  // 2D float uniform에 X 및 Y의 제공된 값으로 설정합니다.
+  glUniform2f(uniformLocation, x, y);
+
+  UnBind();  // 셰이더 프로그램을 사용하지 않습니다.
 }
 
-void shader::UnBind()
-{
-	glUseProgram(0); // Un-use the shader program
+// 3D float uniform 값을 설정합니다.
+void Shader::SetUniform(const std::string& name, float x, float y, float z) {
+  Bind();  // 셰이더 프로그램을 사용합니다.
+
+  // 제공된 이름으로부터 uniform 위치를 가져옵니다.
+  int uniformLocation = glGetUniformLocation(this->id_, name.c_str());
+
+  // 3D float uniform에 X, Y 및 Z의 제공된 값으로 설정합니다.
+  glUniform3f(uniformLocation, x, y, z);
+
+  UnBind();  // 셰이더 프로그램을 사용하지 않습니다.
 }
 
-//Set uniform functions
-void shader::setUniform(std::string name, float X, float Y) // Function to set a 2D float uniform
-{
-	Bind(); // Use the shader program
+// 4D float uniform 값을 설정합니다.
+void Shader::SetUniform(const std::string& name, float x, float y, float z,
+                        float w) {
+  Bind();  // 셰이더 프로그램을 사용합니다.
 
-	unsigned int uniformLocation = glGetUniformLocation(this->s_id, name.c_str()); // Get the uniform location using the provided name
-	glUniform2f(uniformLocation, X, Y); // Set the 2D float uniform with the provided values for X and Y
+  // 제공된 이름으로부터 uniform 위치를 가져옵니다.
+  int uniformLocation = glGetUniformLocation(this->id_, name.c_str());
 
-	UnBind(); // Un-use the shader program
+  // 4D float uniform에 X, Y, Z 및 W의 제공된 값으로 설정합니다.
+  glUniform4f(uniformLocation, x, y, z, w);
+
+  UnBind();  // 셰이더 프로그램을 사용하지 않습니다.
 }
 
-void shader::setUniform(std::string name, float X, float Y, float Z) // Function to set a 3D float uniform
-{
-	Bind(); // Use the shader program
+// 1D float uniform 값을 설정합니다.
+void Shader::SetUniform(const std::string& name, float x) {
+  Bind();  // 셰이더 프로그램을 사용합니다.
 
-	int uniformLocation = glGetUniformLocation(this->s_id, name.c_str()); // Get the uniform location using the provided name
-	glUniform3f(uniformLocation, X, Y, Z); // Set the 3D float uniform with the provided values for X, Y and Z
+  // 제공된 이름으로부터 uniform 위치를 가져옵니다.
+  int uniformLocation = glGetUniformLocation(this->id_, name.c_str());
 
-	UnBind(); // Un-use the shader program
+  // 1D float uniform에 제공된 값으로 설정합니다.
+  glUniform1f(uniformLocation, x);
+
+  UnBind();  // 셰이더 프로그램을 사용하지 않습니다.
 }
 
-void shader::setUniform(std::string name, float X, float Y, float Z, float W) // Function to set a 4D float uniform
-{
-	Bind(); // Use the shader program
+// 1D int uniform 값을 설정합니다.
+void Shader::SetUniform(const std::string& name, int x) {
+  Bind();  // 셰이더 프로그램을 사용합니다.
 
-	int uniformLocation = glGetUniformLocation(this->s_id, name.c_str()); // Get the uniform location using the provided name
-	glUniform4f(uniformLocation, X, Y, Z,W); // Set the 4D float uniform with the provided values for X, Y and Z
+  // 제공된 이름으로부터 uniform 위치를 가져옵니다.
+  int uniformLocation = glGetUniformLocation(this->id_, name.c_str());
 
-	UnBind(); // Un-use the shader program
+  // 1D int uniform에 제공된 값으로 설정합니다.
+  glUniform1i(uniformLocation, x);
+
+  UnBind();  // 셰이더 프로그램을 사용하지 않습니다.
+}
+// mat3 uniform 값을 설정하는 함수
+void Shader::SetUniform(const std::string& name, glm::mat3 x, bool transpose) {
+  Bind();  // 셰이더 프로그램을 사용합니다.
+
+  // 제공된 이름으로부터 uniform 위치를 가져옵니다.
+  int uniformLocation = glGetUniformLocation(this->id_, name.c_str());
+
+  if (transpose) {
+    // transpose 옵션이 활성화되어 있으면 mat3 uniform에 전달된 행렬의
+    // 전치(transpose)를 설정합니다.
+    glUniformMatrix3fv(uniformLocation, 1, GL_TRUE,
+                       glm::value_ptr(glm::transpose(x)));
+  } else {
+    // transpose 옵션이 비활성화되어 있으면 mat3 uniform에 전달된 행렬을
+    // 설정합니다.
+    glUniformMatrix3fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(x));
+  }
+
+  UnBind();  // 셰이더 프로그램을 사용하지 않습니다.
 }
 
-void shader::setUniform(std::string name, float X) // Function to set a float uniform
-{
-	Bind(); // Use the shader program
+// mat4 uniform 값을 설정하는 함수
+void Shader::SetUniform(const std::string& name, glm::mat4 x, bool transpose) {
+  Bind();  // 셰이더 프로그램을 사용합니다.
 
-	int uniformLocation = glGetUniformLocation(this->s_id, name.c_str()); // Get the uniform location using the provided name
-	glUniform1f(uniformLocation, X); // Set the 1D float uniform with the provided value for X
+  // 제공된 이름으로부터 uniform 위치를 가져옵니다.
+  int uniformLocation = glGetUniformLocation(this->id_, name.c_str());
 
-	UnBind(); // Un-use the shader program
+  if (transpose) {
+    // transpose 옵션이 활성화되어 있으면 mat4 uniform에 전달된 행렬의
+    // 전치(transpose)를 설정합니다.
+    glUniformMatrix4fv(uniformLocation, 1, GL_TRUE,
+                       glm::value_ptr(glm::transpose(x)));
+  } else {
+    // transpose 옵션이 비활성화되어 있으면 mat4 uniform에 전달된 행렬을
+    // 설정합니다.
+    glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(x));
+  }
+
+  UnBind();  // 셰이더 프로그램을 사용하지 않습니다.
 }
 
-void shader::setUniform(std::string name, int X) // Function to set an integer uniform
-{
-	Bind(); // Use the shader program
+// vec4 uniform 값을 설정하는 함수
+void Shader::SetUniform(const std::string& name, glm::vec4 x) {
+  Bind();  // 셰이더 프로그램을 사용합니다.
 
-	int uniformLocation = glGetUniformLocation(this->s_id, name.c_str()); // Get the uniform location using the provided name
-	glUniform1i(uniformLocation, X); // Set the 1D int uniform with the provided value for X
+  // 제공된 이름으로부터 uniform 위치를 가져옵니다.
+  int uniformLocation = glGetUniformLocation(this->id_, name.c_str());
 
-	UnBind(); // Un-use the shader program
+  // vec4 uniform에 제공된 값으로 설정합니다.
+  glUniform4fv(uniformLocation, 1, glm::value_ptr(x));
+
+  UnBind();  // 셰이더 프로그램을 사용하지 않습니다.
 }
 
-void shader::setUniform(std::string name, glm::mat3 X, bool transpose) // Function to set a mat3 uniform
-{
-	Bind(); // Use the shader program
+// vec3 uniform 값을 설정하는 함수
+void Shader::SetUniform(const std::string& name, glm::vec3 x) {
+  Bind();  // 셰이더 프로그램을 사용합니다.
 
-	int uniformLocation = glGetUniformLocation(this->s_id, name.c_str()); // Get the uniform location using the provided name
+  // 제공된 이름으로부터 uniform 위치를 가져옵니다.
+  int uniformLocation = glGetUniformLocation(this->id_, name.c_str());
 
-	if (transpose)
-	{
-		glUniformMatrix3fv(uniformLocation, 1, GL_TRUE, glm::value_ptr(glm::transpose(X))); // Set the mat3 uniform with the transpose of the provided matrix
-	}
-	else
-	{
-		glUniformMatrix3fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(X)); // Set the mat3 uniform with the provided matrix
-	}
+  // vec3 uniform에 제공된 값으로 설정합니다.
+  glUniform3fv(uniformLocation, 1, glm::value_ptr(x));
 
-	UnBind(); // Un-use the shader program
+  UnBind();  // 셰이더 프로그램을 사용하지 않습니다.
 }
 
-void shader::setUniform(std::string name, glm::mat4 X, bool transpose) // Function to set a mat4 uniform
-{
-	Bind(); // Use the shader program
+// vec2 uniform 값을 설정하는 함수
+void Shader::SetUniform(const std::string& name, glm::vec2 x) {
+  Bind();  // 셰이더 프로그램을 사용합니다.
 
-	int uniformLocation = glGetUniformLocation(this->s_id, name.c_str()); // Get the uniform location using the provided name
+  // 제공된 이름으로부터 uniform 위치를 가져옵니다.
+  int uniformLocation = glGetUniformLocation(this->id_, name.c_str());
 
-	if (transpose)
-	{
-		glUniformMatrix4fv(uniformLocation, 1, GL_TRUE, glm::value_ptr(glm::transpose(X))); // Set the mat4 uniform with the transpose of the provided matrix
-	}
-	else
-	{
-		glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(X)); // Set the mat4 uniform with the provided matrix
-	}
+  // vec2 uniform에 제공된 값으로 설정합니다.
+  glUniform2fv(uniformLocation, 1, glm::value_ptr(x));
 
-	UnBind(); // Un-use the shader program
+  UnBind();  // 셰이더 프로그램을 사용하지 않습니다.
 }
 
-void shader::setUniform(std::string name, glm::vec4 X) // Function to set a vec4 uniform
-{
-	Bind(); // Use the shader program
+// 텍스처 uniform 값을 설정하는 함수
+void Shader::SetUniform(int i, unsigned int tid) {
+  Bind();  // 셰이더 프로그램을 사용합니다.
 
-	int uniformLocation = glGetUniformLocation(this->s_id, name.c_str()); // Get the uniform location using the provided name
+  // 텍스처 단위 i를 활성화합니다.
+  glActiveTexture(GL_TEXTURE0 + i);
 
-	glUniform4fv(uniformLocation, 1, glm::value_ptr(X)); // Set the vec4 uniform with the provided value for X
+  // 제공된 텍스처 ID (tid)를 현재 활성화된 텍스처 단위에 바인딩합니다.
+  glBindTexture(GL_TEXTURE_2D, tid);
 
-	UnBind(); // Un-use the shader program
-}
+  // 셰이더 프로그램에게 텍스처 Sampler의 값을 텍스처 단위 인덱스 i로 설정하도록
+  // 알립니다.
+  glUniform1i(glGetUniformLocation(this->id_, "textureSampler"), i);
 
-void shader::setUniform(std::string name, glm::vec3 X) // Function to set a vec3 uniform
-{
-	Bind(); // Use the shader program
-
-	int uniformLocation = glGetUniformLocation(this->s_id, name.c_str()); // Get the uniform location using the provided name
-
-	glUniform3fv(uniformLocation, 1, glm::value_ptr(X)); // Set the vec3 uniform with the provided value for X
-
-	UnBind(); // Un-use the shader program
-}
-
-void shader::setUniform(std::string name, glm::vec2 X) // Function to set a vec2 uniform
-{
-	Bind(); // Use the shader program
-
-	int uniformLocation = glGetUniformLocation(this->s_id, name.c_str()); // Get the uniform location using the provided name
-
-	glUniform2fv(uniformLocation, 1, glm::value_ptr(X)); // Set the vec2 uniform with the provided value for X
-
-	UnBind(); // Un-use the shader program
-}
-
-void shader::setUniform(int i, unsigned int tid) // Function to set a texture uniform
-{
-	Bind(); // Use the shader program
-
-	// Activate the texture unit i
-	glActiveTexture(GL_TEXTURE0 + i);
-
-	// Bind the texture with the provided texture ID (tid) to the active texture unit
-	glBindTexture(GL_TEXTURE_2D, tid);
-
-	// Set the uniform value to the texture unit index i
-	glUniform1i(glGetUniformLocation(this->s_id, "textureSampler"), i);
-
-	UnBind(); // Un-use the shader program
+  UnBind();  // 셰이더 프로그램을 사용하지 않습니다.
 }

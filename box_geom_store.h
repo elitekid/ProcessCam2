@@ -1,20 +1,27 @@
-﻿#pragma once
-#include "gBuffers.h"
-#include "shader.h"
-#include "frame_info.h"
+﻿// Copyright 2024 elitekid
 
-class box_geom_store
-{
-public:
-	box_geom_store();
-	~box_geom_store();
-	void setBoxGeometry();
-	void drawBox(frame_info & frameInfo);
-	void bind();
-	void unBind();
-private:
-	std::vector<float> vertices;
-	gBuffers box_buffers;
-	shader box_shader;
-	SettingManager settingManager;
+#ifndef BOX_GEOM_STORE_H_
+#define BOX_GEOM_STORE_H_
+
+#include <vector>
+
+#include "frame_info.h"
+#include "g_buffers.h"
+#include "shader.h"
+
+class BoxGeomStore {
+ public:
+  BoxGeomStore();
+  ~BoxGeomStore();
+  void SetBoxGeometry();
+  void DrawBox(const FrameInfo& frame_info);
+  void Bind();
+  void UnBind();
+
+ private:
+  std::vector<float> vertices_;
+  GBuffers box_buffers_;
+  Shader box_shader_;
 };
+
+#endif  // BOX_GEOM_STORE_H_

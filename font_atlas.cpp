@@ -1,17 +1,14 @@
 ﻿
 #include "font_atlas.h"
 
-font_atlas::font_atlas()
-	:textureID(0), TextureWidth(0), TextureHeight(0)
+FontAtlas::FontAtlas()
+	:texture_id_(0), texture_width_(0), texture_height_(0), is_created_(false)
 {
 }
 
-font_atlas::~font_atlas()
-{
-}
+FontAtlas::~FontAtlas() {}
 
-void font_atlas::create_atlas()
-{
+void FontAtlas::CreateAtlas() {
 	// FreeType
 	// --------
 	FT_Library ft;
@@ -28,10 +25,10 @@ void font_atlas::create_atlas()
 		std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
 		return;
 	}
-	else if(!atlasCreated)
+	else if(!is_created_)
 	{
 		// Clear the previous map (if any)
-		ch_atlas.clear();
+		ch_atlas_.clear();
 
 		// set the font size
 		FT_Set_Pixel_Sizes(face, 0, 512);
@@ -75,9 +72,9 @@ void font_atlas::create_atlas()
 		}
 
 		// generate texture for the atlas
-		glDeleteTextures(1, &textureID); // Delete the existing texture
-		glGenTextures(1, &textureID);
-		glBindTexture(GL_TEXTURE_2D, textureID);
+		glDeleteTextures(1, &texture_id_); // Delete the existing texture
+		glGenTextures(1, &texture_id_);
+		glBindTexture(GL_TEXTURE_2D, texture_id_);
 		glTexImage2D(
 			GL_TEXTURE_2D,
 			0,
@@ -124,17 +121,17 @@ void font_atlas::create_atlas()
 			// store glyph information in character map
 			Character character;
 
-			character.Size = glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows);
-			character.Bearing = glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top);
-			character.Advance = face->glyph->advance.x;
+			character.size = glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows);
+			character.bearing = glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top);
+			character.advance = face->glyph->advance.x;
 
 			// compute glyph texture coordinates
 			character.top_left.x = static_cast<float>(x) / static_cast<float>(atlas_width);
 			character.top_left.y = 0.0f;
-			character.bot_right.x = static_cast<float>(x + character.Size.x) / static_cast<float>(atlas_width);
-			character.bot_right.y = static_cast<float>(character.Size.y) / static_cast<float>(atlas_height);
+			character.bot_right.x = static_cast<float>(x + character.size.x) / static_cast<float>(atlas_width);
+			character.bot_right.y = static_cast<float>(character.size.y) / static_cast<float>(atlas_height);
 
-			ch_atlas.insert(std::pair<char, Character>(*c, character));
+			ch_atlas_.insert(std::pair<char, Character>(*c, character));
 
 			// update x position for next glyph
 			x += face->glyph->bitmap.width;
@@ -146,5 +143,5 @@ void font_atlas::create_atlas()
 	FT_Done_FreeType(ft);
 
 	// atlas가 생성되었음을 표시
-	atlasCreated = true;
+	is_created_ = true;
 }

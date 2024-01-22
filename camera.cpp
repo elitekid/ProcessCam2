@@ -1,49 +1,48 @@
 ﻿#include "camera.h"
 
-Camera::Camera() : status(true)
+Camera::Camera() : status_(true)
 {
 }
 Camera::~Camera()
 {
 }
     // 초기화 함수 구현
-void Camera::initialize(int camNum)
-{
-    stop(); // 이미 카메라가 열려 있다면 중지
+void Camera::Init(int cam_num) {
+    Stop(); // 이미 카메라가 열려 있다면 중지
 
-    cap.open(camNum, CAP_DSHOW);
+    cap_.open(cam_num, cv::CAP_DSHOW);
     double codec = 0x47504A4D; // MJPG
 
-    cap.set(CAP_PROP_FOURCC, codec);
+    cap_.set(cv::CAP_PROP_FOURCC, codec);
     //cap.open("C:/Users/SYNERGY-USER/Downloads/abc/bear.mp4", cv::CAP_V4L2);
-    cap.set(CAP_PROP_FPS, 24);
-    cap.set(CAP_PROP_FRAME_WIDTH, 2560);
-    cap.set(CAP_PROP_FRAME_HEIGHT, 1440);
+    cap_.set(cv::CAP_PROP_FPS, 24);
+    cap_.set(cv::CAP_PROP_FRAME_WIDTH, 2560);
+    cap_.set(cv::CAP_PROP_FRAME_HEIGHT, 1440);
 
-    status = false;
+    status_ = false;
 }
 
-Mat Camera::getFrame()
+cv::Mat Camera::GetFrame()
 {
-    if (cap.isOpened()) {
-        status = cap.read(frame);
+    if (cap_.isOpened()) {
+        status_ = cap_.read(frame_);
     }
 
-    if (status) {
-        return frame;
+    if (status_) {
+        return frame_;
     }
-    return Mat();
+    return cv::Mat();
 }
 
-void Camera::stop()
+void Camera::Stop()
 {
-    cap.release();
+    cap_.release();
 }
 
-int Camera::getCols() const {
-    return cap.isOpened() ? static_cast< int >( cap.get(CAP_PROP_FRAME_WIDTH) ) : 0;
+int Camera::GetCols() const {
+    return cap_.isOpened() ? static_cast< int >( cap_.get(cv::CAP_PROP_FRAME_WIDTH) ) : 0;
 }
 
-int Camera::getRows() const {
-    return cap.isOpened() ? static_cast< int >( cap.get(CAP_PROP_FRAME_HEIGHT) ) : 0;
+int Camera::GetRows() const {
+    return cap_.isOpened() ? static_cast< int >( cap_.get(cv::CAP_PROP_FRAME_HEIGHT) ) : 0;
 }

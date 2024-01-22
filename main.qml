@@ -39,7 +39,7 @@ ApplicationWindow {
             width: 180
             height: 30
             font.pointSize: 11
-            model: cameraListModel.availableCameras;
+            model: camera_list_model.available_cameras;
             currentIndex: 0
             onActivated: function(index) { 
                 comboBox.currentIndex = model[index].value;
@@ -66,14 +66,14 @@ ApplicationWindow {
             y: 60
             width: 40
             height: 40
-            text: qsTr(settingManager.getColorCode())
+            text: qsTr(setting_manager.GetColorCode())
             font.weight: Font.ExtraBold 
             font.pointSize: 8
             transformOrigin: Item.Center
             contentItem: Text {
                 text: fontColorButton.text
                 font: fontColorButton.font
-                color: settingManager.getFontColor()
+                color: setting_manager.GetFontColor()
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
 
@@ -89,12 +89,13 @@ ApplicationWindow {
         ColorDialog {
             id: colorDialog
             title: "Font Color"
-            selectedColor: settingManager.getFontColor()
+            selectedColor: setting_manager.GetFontColor()
             onAccepted: {
-                settingManager.setFontColor(colorDialog.selectedColor);
-                settingManager.setColorCode(colorDialog.selectedColor);
-                fontColorButton.text = settingManager.getColorCode();
-                fontColorButton.contentItem.color = settingManager.getFontColor();
+                const colorCode = colorDialog.selectedColor;
+                setting_manager.SetFontColor(colorCode);
+                setting_manager.SetColorCode(colorCode);
+                fontColorButton.text = setting_manager.GetColorCode();
+                fontColorButton.contentItem.color = setting_manager.GetFontColor();
             }
             onRejected: {
                 console.log("Canceled")
@@ -111,7 +112,7 @@ ApplicationWindow {
             text: qsTr("Run")
             font.pointSize: 12
             onClicked: {
-                qtCamObj.showCam(comboBox.currentIndex, settingManager.getColorCode());
+                qt_camera.ShowCam(comboBox.currentIndex, setting_manager.GetColorCode());
             }
         }
     }

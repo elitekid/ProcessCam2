@@ -1,15 +1,10 @@
 ﻿#include "text_geom_store.h"
 
-text_geom_store::text_geom_store()
-{
-}
+TextGeomStore::TextGeomStore() {}
 
-text_geom_store::~text_geom_store()
-{
-}
+TextGeomStore::~TextGeomStore() {}
 
-void text_geom_store::setTextGeometry()
-{
+void TextGeomStore::SetTextGeometry() {
     // 텍스트 렌더링을 위한 기본 설정
 
     // 정점 데이터 및 인덱스 초기화
@@ -23,7 +18,7 @@ void text_geom_store::setTextGeometry()
     unsigned int node_indices_index = 0;
 
     // 삼각형을 이용한 정점 및 인덱스 생성
-    setSimpleTriangle(node_vertices, node_vertex_index, node_indices, node_indices_index);
+    SetSimpleTriangle(node_vertices, node_vertex_index, node_indices, node_indices_index);
 
     // 정점 버퍼 레이아웃 정의
     VertexBufferLayout vb_tri;
@@ -32,55 +27,51 @@ void text_geom_store::setTextGeometry()
 
     // 색상 설정
     float red, green, blue;
-    Utils::hexToNormalizedFloat(settingManager.getColorCode().toStdString(), red, green, blue);
+    Utils::hexToNormalizedFloat(setting_manager_.GetColorCode().toStdString(), red, green, blue);
 
     // 버퍼 생성
     unsigned int node_vertices_size = node_vertices_count * sizeof(float);
-    tri_buffers.createBuffers(node_vertices, node_vertices_size, node_indices, node_indices_count, vb_tri, GL_STATIC_DRAW);
+    tri_buffers_.CreateBuffers(node_vertices, node_vertices_size, node_indices, node_indices_count, vb_tri, GL_STATIC_DRAW);
 
     // 텍스트 쉐이더 생성 및 초기화
-    text_shader.create_shader("text_vert_shader.vert", "text_frag_shader.frag");
-    text_shader.setUniform("zoomscale", 1.0f);
-    text_shader.setUniform("u_Texture", 0);
-    text_shader.setUniform("textColor", red, green, blue, 1.0f);
+    text_shader_.CreateShaderByPath("text_vert_shader.vert", "text_frag_shader.frag");
+    text_shader_.SetUniform("zoomscale", 1.0f);
+    text_shader_.SetUniform("u_Texture", 0);
+    text_shader_.SetUniform("textColor", red, green, blue, 1.0f);
 }
 
-void text_geom_store::addLabel()
-{
+void TextGeomStore::AddLabel() {
     // 라벨 추가 함수
     // TextArea 객체를 이용하여 라벨의 위치 및 색상 설정
 
     // 모든 라벨 초기화
-    all_labels.init();
+    all_labels_.Init();
 
-    vector<TextArea> textAreas = frameInfo.getTextAreas();
-    int w = frameInfo.getFrame().cols;
-    int h = frameInfo.getFrame().rows;
+    std::vector<TextArea> text_areas = frame_info_.GetTextAreas();
+    int w = frame_info_.GetFrame().cols;
+    int h = frame_info_.GetFrame().rows;
 
     // 각 TextArea에 대한 라벨 추가
-    for (const auto& t : textAreas) {
+    for (const auto& t : text_areas) {
         // NDC 좌표 계산
-        float ndcX = ((t.getX() + frameInfo.getSquareSize() / 2.0f - 4.5f) / w) * 2.0f - 1.0f;
-        float ndcY = 1.0f - ((t.getY()) / (h - 1.0f)) * 2.0f;
+        float ndcX = ((t.GetX() + frame_info_.GetSquareSize() / 2.0f - 4.5f) / w) * 2.0f - 1.0f;
+        float ndcY = 1.0f - ((t.GetY()) / (h - 1.0f)) * 2.0f;
 
         // 라벨 추가
-        all_labels.add_text(t.getHexColor(), glm::vec2(ndcX, ndcY), glm::vec3(0.0f, 1.0f, 1.0f), 1.0f, -90, 0.000015f);
+        all_labels_.AddText(t.GetHexColor(), glm::vec2(ndcX, ndcY), glm::vec3(0.0f, 1.0f, 1.0f), 1.0f, -90, 0.000015f);
     }
 
     // 라벨에 대한 버퍼 설정
-    all_labels.set_buffers();
+    all_labels_.SetBuffers();
 }
 
-void text_geom_store::deleteBuffers()
-{
+void TextGeomStore::DeleteBuffers() {
     // 버퍼 삭제 함수
     // 모든 라벨의 버퍼를 삭제
-    all_labels.clear_buffers();
+    all_labels_.ClearBuffers();
 }
 
-void text_geom_store::setSimpleTriangle(float* vertices, unsigned int& vertices_index,
-    unsigned int* indices, unsigned int& indices_index)
-{
+void TextGeomStore::SetSimpleTriangle(float* vertices, unsigned int& vertices_index, unsigned int* indices, unsigned int& indices_index) {
     // 간단한 삼각형 정점 및 인덱스 설정 함수
     // 삼각형의 세 꼭지점을 정의하고 인덱스를 설정
 
@@ -123,20 +114,19 @@ void text_geom_store::setSimpleTriangle(float* vertices, unsigned int& vertices_
     indices[indices_index + 2] = 2;
 }
 
-void text_geom_store::drawText(frame_info& newFrame)
-{
+void TextGeomStore::DrawColorCode(FrameInfo& newFrame) {
     // 프레임 정보 업데이트
-    frameInfo = newFrame;
+    frame_info_ = newFrame;
 
     // 라벨 추가
-    addLabel();
+    AddLabel();
 
     // 텍스트 쉐이더 바인딩
-    text_shader.Bind();
+    text_shader_.Bind();
 
     // 텍스트 그리기
-    all_labels.paint_text();
+    all_labels_.DrawText();
 
     // 텍스트 쉐이더 언바인딩
-    text_shader.UnBind();
+    text_shader_.UnBind();
 }

@@ -35,34 +35,19 @@
     <ClCompile Include="glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TextArea.cpp">
+    <ClCompile Include="text_area.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="cameralistmodel.cpp">
+    <ClCompile Include="camera_list_model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qtCamObj.cpp">
+    <ClCompile Include="qt_camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="font_atlas.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gBuffers.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="IndexBuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="VertexArray.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="VertexBuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="VertexBufferLayout.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="text_geom_store.cpp">
@@ -83,62 +68,58 @@
     <ClCompile Include="box_geom_store.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="frame_info.h">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="frame_info.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <QtMoc Include="settingmanager.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="cameralistmodel.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="qtCamObj.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="colorDialog.qml">
+    <ClCompile Include="g_buffers.cpp">
       <Filter>Source Files</Filter>
-    </None>
+    </ClCompile>
+    <ClCompile Include="index_buffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vertex_array.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vertex_buffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vertex_buffer_layout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="setting_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="camera_list_model.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="qt_camera.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="setting_manager.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
     <None Include="text_frag_shader.frag" />
     <None Include="text_vert_shader.vert" />
     <None Include="camera_frag_shader.frag" />
     <None Include="camera_frag_shader.vert" />
     <None Include="box_frag_shader.frag" />
     <None Include="box_frag_shader.vert" />
-    <None Include=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="textarea.h">
+    <ClInclude Include="text_area.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="font_atlas.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gBuffers.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="VertexArray.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="VertexBuffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="VertexBufferLayout.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IndexBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="text_geom_store.h">
@@ -160,6 +141,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="frame_info.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="index_buffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vertex_array.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vertex_buffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vertex_buffer_layout.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="g_buffers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
