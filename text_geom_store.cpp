@@ -5,6 +5,12 @@ TextGeomStore::TextGeomStore() {}
 TextGeomStore::~TextGeomStore() {}
 
 void TextGeomStore::SetTextGeometry() {
+
+    // 이전에 할당된 자원들 해제
+    tri_buffers_.ClearBuffers();
+    text_shader_.deleteProgram();
+    DeleteBuffers();
+
     // 텍스트 렌더링을 위한 기본 설정
 
     // 정점 데이터 및 인덱스 초기화
@@ -125,7 +131,7 @@ void TextGeomStore::DrawColorCode(FrameInfo& newFrame) {
     text_shader_.Bind();
 
     // 텍스트 그리기
-    all_labels_.DrawText();
+    all_labels_.DrawColorCode();
 
     // 텍스트 쉐이더 언바인딩
     text_shader_.UnBind();

@@ -6,13 +6,15 @@
 #include <windows.h>
 
 #include <glad/glad.h>
-#include <GLFW/glfw3.h>
 #include <QtQuick>
 #include <QObject>
+#include <QDebug>
 #include <iostream>
+#include <glm/gtx/transform.hpp>
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
+#include "setting_manager.h"
 #include "util.h"
 #include "camera.h"
 #include "frame_info.h"
@@ -34,10 +36,11 @@ public:
 signals:
 
 public slots:
-    void ShowCam(int camera_num);
+    void ShowCam();
 
 private:
     Camera cam_;
+    SettingManager setting_manager_;
 
     FrameInfo frame_info_;
     CamGeomStore cam_geom_store_;
@@ -46,7 +49,7 @@ private:
 
     GLFWwindow* window_;
 
-private:
+   private:
     void processInput(GLFWwindow* window);
 };
 

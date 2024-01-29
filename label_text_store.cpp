@@ -74,7 +74,7 @@ void LabelTextStore::ClearBuffers() {
 	label_buffers_.ClearBuffers();
 }
 
-void LabelTextStore::DrawText() {
+void LabelTextStore::DrawColorCode() {
 	// 모든 라벨 그리기
 	label_buffers_.Bind();
 

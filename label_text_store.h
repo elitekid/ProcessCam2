@@ -33,7 +33,7 @@ class LabelTextStore
   void AddText(const char* text, glm::vec2 text_loc, glm::vec3 text_color, float geom_scale, float font_angle, float font_size);
   void SetBuffers();
   void ClearBuffers();
-  void DrawText();
+  void DrawColorCode();
  private:
   void GetBuffer(LabelText& label, float* vertices, unsigned int& vertex_index, unsigned int* indices, unsigned int& indices_index);
   glm::vec2 RotatePt(glm::vec2& rotate_about, glm::vec2 pt, float& rotation_angle);

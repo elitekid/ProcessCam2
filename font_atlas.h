@@ -4,6 +4,7 @@
 #define FONT_ATLAS_H_
 
 #include <iostream>
+#include <windows.h>
 #include <map>
 #include <string>
 
@@ -12,11 +13,13 @@
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
+#include <QDebug>
 
 // FreeType
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
+#include "setting_manager.h"
 #include "g_buffers.h"
 /// FreeType을 사용하여 로드된 글자와 관련된 모든 상태 정보를 보유하는 구조체
 struct Character
@@ -41,11 +44,13 @@ class FontAtlas
   // 아틀라스를 생성하는 함수
   void CreateAtlas();
   
+  SettingManager setting_manager_;
   unsigned int texture_id_;      // 텍스처 식별자
   unsigned int texture_width_;   // 아틀라스의 전체 너비
   unsigned int texture_height_;  // 아틀라스의 전체 높이
   std::map<char, Character> ch_atlas_;  // 문자와 그에 대한 정보를 매핑하는 맵
  private:
+  std::string GetWindowsDrive();
   bool is_created_;						// 아틀라스 생성 여부 플래그
 };
 

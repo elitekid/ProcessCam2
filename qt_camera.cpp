@@ -16,14 +16,14 @@
     {
     }
 
-    void QtCamera::ShowCam(int camera_num)
+    void QtCamera::ShowCam()
     {
         // 카메라 초기화
-        cam_.Init(camera_num);
+        cam_.Init(setting_manager_.GetCamera());
 
         // glfw 초기화
         if (!glfwInit()) {
-            std::cerr << "Failed to initialize GLFW" << std::endl;
+            qDebug() << "Failed to initialize GLFW";
             exit(EXIT_FAILURE);
         }
 
@@ -31,7 +31,6 @@
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-        glfwWindowHint(GLFW_SAMPLES, 4);
 
         // 화면 생성
         window_ = glfwCreateWindow(cam_.GetCols(), cam_.GetRows(), "Webcam Output", NULL, NULL);
@@ -43,17 +42,20 @@
         // 주 모니터 화면
         GLFWmonitor* primary = glfwGetPrimaryMonitor();
 
-        // 전체화면으로 설정
         const GLFWvidmode* mode = glfwGetVideoMode(primary);
-        //glfwSetWindowMonitor(window, primary, 0, 0, mode->width, mode->height, mode->refreshRate);
+
+        // 전체화면설정
+        if (setting_manager_.GetFullScreenMode()) {
+            glfwSetWindowMonitor(window_, primary, 0, 0, mode->width, mode->height, mode->refreshRate);
+        }
+
         glfwMakeContextCurrent(window_);
         glfwSetFramebufferSizeCallback(window_, framebuffer_size_callback);
     
-
         // GLAD 로드
         if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
         {
-            std::cout << "Failed to initialize GLAD" << std::endl;
+            qDebug() << "Failed to initialize GLAD";
             glfwTerminate();
             return;
         }
@@ -61,13 +63,6 @@
 
         glad_glEnable(GL_BLEND);
         glad_glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        glad_glEnable(GL_MULTISAMPLE);
-
-        // 멀티샘플 앤티앨리어싱 속성 설정
-        glad_glHint(GL_MULTISAMPLE_FILTER_HINT_NV, GL_NICEST);
-
-        // 멀티샘플 앤티앨리어싱을 원하는 프레임버퍼로 설정
-        glad_glEnable(GL_MULTISAMPLE_ARB);
 
         // 캠 화면 스토어 초기화
         cam_geom_store_.SetCameraGeometry(cam_.GetCols(), cam_.GetRows());
@@ -88,6 +83,7 @@
 
             // 화면의 한 프레임 얻기
             Mat frame = cam_.GetFrame();
+
             // 좌우 반전
             cv::flip(frame, frame, 1);
 
@@ -99,8 +95,10 @@
 
             // 캠 화면 그리기
             cam_geom_store_.DrawCam(frame);
+
             // 사각형 그리기
             box_geom_store_.DrawBox(frame_info_);
+            
             // 텍스트 그리기
             text_geom_store_.DrawColorCode(frame_info_);
 

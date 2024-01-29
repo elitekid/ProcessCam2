@@ -8,6 +8,12 @@ Shader::~Shader() {
   }
 }
 
+void Shader::deleteProgram() {
+  if (this->id_ != 0) {
+    glDeleteProgram(this->id_);
+  }
+}
+
 void Shader::CreateShaderByPath(const char* vertex_path,
                                 const char* fragment_path) {
   // 버텍스 셰이더를 생성합니다.

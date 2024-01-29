@@ -58,3 +58,15 @@ void Utils::calcNDS(int w, int h, float x, float y, float square_size, std::vect
         topLeftX, bottomRightY, 0.0f   // 왼쪽 하단
      });
 }
+
+std::filesystem::path Utils::GetFontPath() {
+    std::string folderPath = "fonts/";
+
+    // 현재 작업 디렉토리의 절대 경로를 얻어옵니다.
+    std::filesystem::path currentPath = std::filesystem::current_path();
+
+    // 상대 경로를 절대 경로로 변환합니다.
+    std::filesystem::path fontPath = currentPath / folderPath;
+
+    return fontPath;
+}

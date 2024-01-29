@@ -86,6 +86,9 @@
       <OpenMPSupport>true</OpenMPSupport>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <PreBuildEvent>
+      <Command>if not exist "$(TargetDir)fonts\" xcopy "$(ProjectDir)fonts\*.ttf" "$(TargetDir)fonts\" /Y</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Link>
@@ -97,6 +100,9 @@
       <OpenMPSupport>true</OpenMPSupport>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <PreBuildEvent>
+      <Command>if not exist "$(TargetDir)fonts\" xcopy "$(ProjectDir)fonts\*.ttf" "$(TargetDir)fonts\" /Y</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
@@ -125,11 +131,13 @@
   <ItemGroup>
     <ClCompile Include="box_geom_store.cpp" />
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="font_list_model.cpp" />
     <ClCompile Include="qt_camera.cpp" />
     <ClCompile Include="camera_list_model.cpp" />
     <ClCompile Include="cam_geom_store.cpp" />
     <ClCompile Include="font_atlas.cpp" />
     <ClCompile Include="frame_info.cpp" />
+    <QtMoc Include="font_list_model.h" />
     <ClInclude Include="frame_info.h" />
     <ClCompile Include="g_buffers.cpp" />
     <ClCompile Include="setting_manager.cpp" />
@@ -175,7 +183,12 @@
     <QtMoc Include="setting_manager.h" />
   </ItemGroup>
   <ItemGroup>
-    <Font Include="ttf_CenturyGothic.ttf" />
+    <Font Include="fonts\arial.ttf" />
+    <Font Include="fonts\ARIALN.TTF" />
+    <Font Include="fonts\ARIALNB.TTF" />
+    <Font Include="fonts\bahnschrift.ttf" />
+    <Font Include="fonts\micross.ttf" />
+    <Font Include="fonts\ttf_CenturyGothic.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

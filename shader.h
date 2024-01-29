@@ -26,6 +26,8 @@ class Shader {
   Shader();
   ~Shader();
 
+  void deleteProgram();
+
   // 셰이더 생성
   void CreateShaderByPath(const char* vertex_path, const char* fragment_path);
 

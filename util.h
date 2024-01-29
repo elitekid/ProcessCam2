@@ -1,8 +1,11 @@
 ﻿#ifndef UTIL_H
 #define UTIL_H
 
+#include <iostream>
+#include <filesystem>
 #include <string>
 #include <vector>
+#include <windows.h>
 
 class Utils {
 public:
@@ -14,6 +17,9 @@ public:
 
     // 좌표 정규화 : 추출한 절대좌표 -> -1.0f ~ 1.0f 범위로 정규화
     static void calcNDS(int w, int h, float x, float y, float square_size, std::vector<float>& vertices);
+
+    // 폰트 목록 반환
+    static std::filesystem::path GetFontPath();
 
     // 다른 유틸리티 함수들을 추가할 수 있습니다.
 };

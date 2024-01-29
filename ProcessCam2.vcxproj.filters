@@ -92,6 +92,9 @@
     <ClCompile Include="setting_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="font_list_model.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="camera_list_model.h">
@@ -101,6 +104,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="setting_manager.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="font_list_model.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -163,6 +169,11 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Font Include="ttf_CenturyGothic.ttf" />
+    <Font Include="fonts\arial.ttf" />
+    <Font Include="fonts\ARIALN.TTF" />
+    <Font Include="fonts\ARIALNB.TTF" />
+    <Font Include="fonts\bahnschrift.ttf" />
+    <Font Include="fonts\micross.ttf" />
+    <Font Include="fonts\ttf_CenturyGothic.ttf" />
   </ItemGroup>
 </Project>
