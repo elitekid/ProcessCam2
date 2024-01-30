@@ -5,11 +5,11 @@
 #include <QtDebug>
 #include <QColor>
 
-#include "util.h"
-#include "qt_camera.h"
-#include "camera_list_model.h"
-#include "font_list_model.h"
-#include "setting_manager.h"
+#include "lib/util.h"
+#include "lib/qt_camera.h"
+#include "lib/camera_list_model.h"
+#include "lib/font_list_model.h"
+#include "lib/setting_manager.h"
 
 int main(int argc, char* argv[])
 {

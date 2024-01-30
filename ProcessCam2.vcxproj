@@ -129,58 +129,36 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="box_geom_store.cpp" />
-    <ClCompile Include="camera.cpp" />
-    <ClCompile Include="font_list_model.cpp" />
-    <ClCompile Include="qt_camera.cpp" />
-    <ClCompile Include="camera_list_model.cpp" />
-    <ClCompile Include="cam_geom_store.cpp" />
-    <ClCompile Include="font_atlas.cpp" />
-    <ClCompile Include="frame_info.cpp" />
-    <QtMoc Include="font_list_model.h" />
-    <ClInclude Include="frame_info.h" />
-    <ClCompile Include="g_buffers.cpp" />
-    <ClCompile Include="setting_manager.cpp" />
-    <ClCompile Include="text_geom_store.cpp" />
     <ClCompile Include="glad.c" />
-    <ClCompile Include="index_buffer.cpp" />
-    <ClCompile Include="label_text_store.cpp" />
+    <ClCompile Include="lib\box_geom_store.cpp" />
+    <ClCompile Include="lib\camera.cpp" />
+    <ClCompile Include="lib\camera_list_model.cpp" />
+    <ClCompile Include="lib\cam_geom_store.cpp" />
+    <ClCompile Include="lib\font_atlas.cpp" />
+    <ClCompile Include="lib\font_list_model.cpp" />
+    <ClCompile Include="lib\frame_info.cpp" />
+    <ClCompile Include="lib\g_buffers.cpp" />
+    <ClCompile Include="lib\index_buffer.cpp" />
+    <ClCompile Include="lib\label_text_store.cpp" />
+    <ClCompile Include="lib\qt_camera.cpp" />
+    <ClCompile Include="lib\setting_manager.cpp" />
+    <ClCompile Include="lib\shader.cpp" />
+    <ClCompile Include="lib\texture.cpp" />
+    <ClCompile Include="lib\text_area.cpp" />
+    <ClCompile Include="lib\text_geom_store.cpp" />
+    <ClCompile Include="lib\util.cpp" />
+    <ClCompile Include="lib\vertex_array.cpp" />
+    <ClCompile Include="lib\vertex_buffer.cpp" />
+    <ClCompile Include="lib\vertex_buffer_layout.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="shader.cpp" />
-    <ClCompile Include="text_area.cpp" />
-    <ClCompile Include="texture.cpp" />
-    <ClCompile Include="util.cpp" />
-    <ClCompile Include="vertex_array.cpp" />
-    <ClCompile Include="vertex_buffer.cpp" />
-    <ClCompile Include="vertex_buffer_layout.cpp" />
-    <None Include="camera_frag_shader.frag" />
-    <None Include="camera_frag_shader.vert" />
-    <None Include="box_frag_shader.frag" />
-    <None Include="box_frag_shader.vert" />
-    <None Include="text_frag_shader.frag" />
-    <None Include="text_vert_shader.vert" />
     <QtRcc Include="qml.qrc" />
+    <None Include="glsl\box_frag_shader.frag" />
+    <None Include="glsl\box_frag_shader.vert" />
+    <None Include="glsl\camera_frag_shader.frag" />
+    <None Include="glsl\camera_frag_shader.vert" />
+    <None Include="glsl\text_frag_shader.frag" />
+    <None Include="glsl\text_vert_shader.vert" />
     <None Include="main.qml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="box_geom_store.h" />
-    <ClInclude Include="camera.h" />
-    <ClInclude Include="cam_geom_store.h" />
-    <QtMoc Include="qt_camera.h" />
-    <ClInclude Include="text_geom_store.h" />
-    <ClInclude Include="index_buffer.h" />
-    <ClInclude Include="label_text_store.h" />
-    <ClInclude Include="shader.h" />
-    <ClInclude Include="texture.h" />
-    <ClInclude Include="util.h" />
-    <ClInclude Include="vertex_array.h" />
-    <ClInclude Include="vertex_buffer.h" />
-    <ClInclude Include="vertex_buffer_layout.h" />
-    <QtMoc Include="camera_list_model.h" />
-    <ClInclude Include="font_atlas.h" />
-    <ClInclude Include="g_buffers.h" />
-    <ClInclude Include="text_area.h" />
-    <QtMoc Include="setting_manager.h" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="fonts\arial.ttf" />
@@ -189,6 +167,28 @@
     <Font Include="fonts\bahnschrift.ttf" />
     <Font Include="fonts\micross.ttf" />
     <Font Include="fonts\ttf_CenturyGothic.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="lib\box_geom_store.h" />
+    <ClInclude Include="lib\camera.h" />
+    <ClInclude Include="lib\font_atlas.h" />
+    <ClInclude Include="lib\frame_info.h" />
+    <ClInclude Include="lib\g_buffers.h" />
+    <ClInclude Include="lib\index_buffer.h" />
+    <ClInclude Include="lib\label_text_store.h" />
+    <ClInclude Include="lib\shader.h" />
+    <ClInclude Include="lib\texture.h" />
+    <ClInclude Include="lib\text_area.h" />
+    <ClInclude Include="lib\text_geom_store.h" />
+    <ClInclude Include="lib\util.h" />
+    <ClInclude Include="lib\vertex_array.h" />
+    <ClInclude Include="lib\vertex_buffer.h" />
+    <ClInclude Include="lib\vertex_buffer_layout.h" />
+    <QtMoc Include="lib\setting_manager.h" />
+    <QtMoc Include="lib\qt_camera.h" />
+    <QtMoc Include="lib\font_list_model.h" />
+    <QtMoc Include="lib\camera_list_model.h" />
+    <ClInclude Include="lib\cam_geom_store.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

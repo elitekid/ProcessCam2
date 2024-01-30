@@ -40,7 +40,7 @@ void TextGeomStore::SetTextGeometry() {
     tri_buffers_.CreateBuffers(node_vertices, node_vertices_size, node_indices, node_indices_count, vb_tri, GL_STATIC_DRAW);
 
     // 텍스트 쉐이더 생성 및 초기화
-    text_shader_.CreateShaderByPath("text_vert_shader.vert", "text_frag_shader.frag");
+    text_shader_.CreateShaderByPath("glsl/text_vert_shader.vert", "glsl/text_frag_shader.frag");
     text_shader_.SetUniform("zoomscale", 1.0f);
     text_shader_.SetUniform("u_Texture", 0);
     text_shader_.SetUniform("textColor", red, green, blue, 1.0f);

@@ -15,7 +15,7 @@ void BoxGeomStore::SetBoxGeometry() {
                             node_vertices_size, vb_tri, GL_STREAM_DRAW);
 
   // 쉐이더 생성
-  box_shader_.CreateShaderByPath("box_frag_shader.vert", "box_frag_shader.frag");
+  box_shader_.CreateShaderByPath("glsl/box_frag_shader.vert", "glsl/box_frag_shader.frag");
 }
 
 void BoxGeomStore::DrawBox(const FrameInfo& frame_Info) {

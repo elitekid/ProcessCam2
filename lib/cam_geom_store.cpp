@@ -36,8 +36,7 @@ void CamGeomStore::SetCameraGeometry(int width, int height) {
                              node_indices_count, vb_tri, GL_STATIC_DRAW);
 
   // 쉐이더 생성
-  cam_shader_.CreateShaderByPath("camera_frag_shader.vert",
-                           "camera_frag_shader.frag");
+  cam_shader_.CreateShaderByPath("glsl/camera_frag_shader.vert", "glsl/camera_frag_shader.frag");
 
   // 텍스처 초기화
   cam_texture_.Load(width, height);

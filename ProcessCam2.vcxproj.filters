@@ -13,13 +13,14 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>qrc;rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Form Files">
-      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
-      <Extensions>ui</Extensions>
+    <Filter Include="Source Files\lib">
+      <UniqueIdentifier>{c75c84dd-df9a-4f53-a33c-60898be1ad23}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Translation Files">
-      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
-      <Extensions>ts</Extensions>
+    <Filter Include="Resource Files\shader">
+      <UniqueIdentifier>{73da7d06-6e8b-4e56-9464-98302011b628}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\font">
+      <UniqueIdentifier>{40bf83f9-583d-4ce3-845b-e1780810c237}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -35,145 +36,169 @@
     <ClCompile Include="glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="text_area.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\box_geom_store.cpp">
+      <Filter>Source Files\lib</Filter>
     </ClCompile>
-    <ClCompile Include="camera_list_model.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\cam_geom_store.cpp">
+      <Filter>Source Files\lib</Filter>
     </ClCompile>
-    <ClCompile Include="qt_camera.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\camera.cpp">
+      <Filter>Source Files\lib</Filter>
     </ClCompile>
-    <ClCompile Include="font_atlas.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\camera_list_model.cpp">
+      <Filter>Source Files\lib</Filter>
     </ClCompile>
-    <ClCompile Include="texture.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\font_atlas.cpp">
+      <Filter>Source Files\lib</Filter>
     </ClCompile>
-    <ClCompile Include="text_geom_store.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\font_list_model.cpp">
+      <Filter>Source Files\lib</Filter>
     </ClCompile>
-    <ClCompile Include="label_text_store.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\frame_info.cpp">
+      <Filter>Source Files\lib</Filter>
     </ClCompile>
-    <ClCompile Include="shader.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\g_buffers.cpp">
+      <Filter>Source Files\lib</Filter>
     </ClCompile>
-    <ClCompile Include="util.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\index_buffer.cpp">
+      <Filter>Source Files\lib</Filter>
     </ClCompile>
-    <ClCompile Include="cam_geom_store.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\label_text_store.cpp">
+      <Filter>Source Files\lib</Filter>
     </ClCompile>
-    <ClCompile Include="box_geom_store.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\qt_camera.cpp">
+      <Filter>Source Files\lib</Filter>
     </ClCompile>
-    <ClCompile Include="frame_info.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\setting_manager.cpp">
+      <Filter>Source Files\lib</Filter>
     </ClCompile>
-    <ClCompile Include="camera.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\shader.cpp">
+      <Filter>Source Files\lib</Filter>
     </ClCompile>
-    <ClCompile Include="g_buffers.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\text_area.cpp">
+      <Filter>Source Files\lib</Filter>
     </ClCompile>
-    <ClCompile Include="index_buffer.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\text_geom_store.cpp">
+      <Filter>Source Files\lib</Filter>
     </ClCompile>
-    <ClCompile Include="vertex_array.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\texture.cpp">
+      <Filter>Source Files\lib</Filter>
     </ClCompile>
-    <ClCompile Include="vertex_buffer.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\util.cpp">
+      <Filter>Source Files\lib</Filter>
     </ClCompile>
-    <ClCompile Include="vertex_buffer_layout.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\vertex_array.cpp">
+      <Filter>Source Files\lib</Filter>
     </ClCompile>
-    <ClCompile Include="setting_manager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\vertex_buffer.cpp">
+      <Filter>Source Files\lib</Filter>
     </ClCompile>
-    <ClCompile Include="font_list_model.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\vertex_buffer_layout.cpp">
+      <Filter>Source Files\lib</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="camera_list_model.h">
+    <Font Include="fonts\arial.ttf">
+      <Filter>Resource Files\font</Filter>
+    </Font>
+    <Font Include="fonts\ARIALN.TTF">
+      <Filter>Resource Files\font</Filter>
+    </Font>
+    <Font Include="fonts\ARIALNB.TTF">
+      <Filter>Resource Files\font</Filter>
+    </Font>
+    <Font Include="fonts\bahnschrift.ttf">
+      <Filter>Resource Files\font</Filter>
+    </Font>
+    <Font Include="fonts\micross.ttf">
+      <Filter>Resource Files\font</Filter>
+    </Font>
+    <Font Include="fonts\ttf_CenturyGothic.ttf">
+      <Filter>Resource Files\font</Filter>
+    </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="lib\box_geom_store.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\cam_geom_store.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\font_atlas.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\frame_info.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\g_buffers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\index_buffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\label_text_store.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\text_area.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\text_geom_store.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\util.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\vertex_array.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\vertex_buffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\vertex_buffer_layout.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="lib\camera_list_model.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="qt_camera.h">
+    <QtMoc Include="lib\font_list_model.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="setting_manager.h">
+    <QtMoc Include="lib\qt_camera.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="font_list_model.h">
+    <QtMoc Include="lib\setting_manager.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    <None Include="text_frag_shader.frag" />
-    <None Include="text_vert_shader.vert" />
-    <None Include="camera_frag_shader.frag" />
-    <None Include="camera_frag_shader.vert" />
-    <None Include="box_frag_shader.frag" />
-    <None Include="box_frag_shader.vert" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="text_area.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="font_atlas.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="text_geom_store.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="label_text_store.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="shader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="util.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="cam_geom_store.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="box_geom_store.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="frame_info.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="index_buffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="vertex_array.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="vertex_buffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="vertex_buffer_layout.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="g_buffers.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="fonts\arial.ttf" />
-    <Font Include="fonts\ARIALN.TTF" />
-    <Font Include="fonts\ARIALNB.TTF" />
-    <Font Include="fonts\bahnschrift.ttf" />
-    <Font Include="fonts\micross.ttf" />
-    <Font Include="fonts\ttf_CenturyGothic.ttf" />
+    <None Include="glsl\box_frag_shader.frag">
+      <Filter>Resource Files\shader</Filter>
+    </None>
+    <None Include="glsl\box_frag_shader.vert">
+      <Filter>Resource Files\shader</Filter>
+    </None>
+    <None Include="glsl\camera_frag_shader.frag">
+      <Filter>Resource Files\shader</Filter>
+    </None>
+    <None Include="glsl\camera_frag_shader.vert">
+      <Filter>Resource Files\shader</Filter>
+    </None>
+    <None Include="glsl\text_frag_shader.frag">
+      <Filter>Resource Files\shader</Filter>
+    </None>
+    <None Include="glsl\text_vert_shader.vert">
+      <Filter>Resource Files\shader</Filter>
+    </None>
   </ItemGroup>
 </Project>
