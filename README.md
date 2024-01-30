@@ -14,13 +14,13 @@
 - 텍스트 렌더링: `FreeType` 라이브러리를 사용하여 색상 코드를 텍스트 형식으로 렌더링합니다.
 
 ## :gear: 기술 스택
-
-- 프로그래밍 언어: C++
-- 라이브러리:
-  - OpenCV: 컴퓨터 비전
-  - OpenGL: 그래픽 처리
-  - FreeType: 폰트 렌더링
-- 프레임워크: Qt
+<div>
+  <img src="https://img.shields.io/badge/c-A8B9CC?style=for-the-badge&logo=c&logoColor=white">
+  <img src="https://img.shields.io/badge/c++-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white">
+  <img src="https://img.shields.io/badge/opencv-5C3EE8?style=for-the-badge&logo=opencv&logoColor=white">
+  <img src="https://img.shields.io/badge/opengl-5586A4?style=for-the-badge&logo=opengl&logoColor=white">
+  <img src="https://img.shields.io/badge/qt-41CD52?style=for-the-badge&logo=qt&logoColor=white">
+</div>
 
 ## :art: 작품 구성
 
