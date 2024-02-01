@@ -1,6 +1,6 @@
 # "창백한 푸른 점"
 
-![ProcessCam2_2](https://github.com/elitekid/ProcessCam2/assets/89232526/275b1929-5821-4533-9009-9436398493b1)
+![ProcessCam2_2](https://github.com/elitekid/ProcessCam2/assets/89232526/5c1fc6ad-2482-4e30-b6d7-b68f8c089c77)
 
 ## :sparkles: 소개
 
