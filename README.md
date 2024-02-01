@@ -52,4 +52,5 @@
 - OpenGL 라이브러리를 사용하여 사각형 텍스처를 화면에 출력합니다.
 
 ## :play_or_pause_button: 구동
+![ProcessCam2_application](https://github.com/elitekid/ProcessCam2/assets/89232526/5384eb96-47d6-41de-a9d5-0226962c97bd)
 ![ProcessCam2](https://github.com/elitekid/ProcessCam2/assets/89232526/8010bda6-5126-4533-9a3c-03029a2075c5)
