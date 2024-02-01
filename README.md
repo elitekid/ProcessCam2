@@ -1,7 +1,8 @@
 # "창백한 푸른 점"
-
-<img src="https://github.com/elitekid/ProcessCam2/assets/89232526/5c1fc6ad-2482-4e30-b6d7-b68f8c089c77" alt="ProcessCam2_2" style="max-width: 30%;">
-<img src="https://github.com/elitekid/ProcessCam2/assets/89232526/afbb7092-d30d-464a-939f-dc04d4de0c42" alt="ProcessCam2_detail1" style="max-width: 30%;">
+<div>
+  <img src="https://github.com/elitekid/ProcessCam2/assets/89232526/5c1fc6ad-2482-4e30-b6d7-b68f8c089c77" alt="ProcessCam2_2" style="max-width: 30%;">
+  <img src="https://github.com/elitekid/ProcessCam2/assets/89232526/afbb7092-d30d-464a-939f-dc04d4de0c42" alt="ProcessCam2_detail1" style="max-width: 30%;">
+</div>
 
 ## :sparkles: 소개
 
@@ -50,4 +51,4 @@
 ### 7. OpenGL 그래픽 출력
 - OpenGL 라이브러리를 사용하여 사각형 텍스처를 화면에 출력합니다.
 
-▶️
+## :▶️: 구동
